@@ -13,7 +13,7 @@ const FloatingCallButton = () => {
     >
       <a
         href="tel:+1234567890"
-        className="btn btn-circle btn-primary btn-lg shadow-lg"
+        className="btn btn-circle bg-marine-aqua hover:bg-marine-blue text-neutral-white shadow-lg"
       >
         <Phone className="w-6 h-6" />
       </a>

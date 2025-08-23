@@ -1,2 +1,16 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@theme {
+  --color-marine-navy: #0A3D62;
+  --color-marine-blue: #1E5F74;
+  --color-marine-aqua: #3DB9C8;
+  --color-marine-seafoam: #79D9C5;
+
+  --color-neutral-white: #FFFFFF;
+  --color-neutral-graylight: #F5F7FA;
+  --color-neutral-graycool: #A7B1B8;
+  --color-neutral-charcoal: #1C1C1C;
+
+  --color-accent-orange: #FF7F50;
+}
