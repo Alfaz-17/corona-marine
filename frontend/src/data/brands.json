@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Caterpillar",
+    "logo": "https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg",
+    "description": "Leading manufacturer of marine engines and power systems"
+  },
+  {
+    "id": 2,
+    "name": "Furuno",
+    "logo": "https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg",
+    "description": "Advanced marine electronics and navigation systems"
+  },
+  {
+    "id": 3,
+    "name": "Mustang Survival",
+    "logo": "https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg",
+    "description": "Professional marine safety equipment"
+  },
+  {
+    "id": 4,
+    "name": "Michigan Wheel",
+    "logo": "https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg",
+    "description": "Premium marine propellers and propulsion systems"
+  },
+  {
+    "id": 5,
+    "name": "Garmin",
+    "logo": "https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg",
+    "description": "Marine GPS and navigation technology"
+  },
+  {
+    "id": 6,
+    "name": "Peerless",
+    "logo": "https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg",
+    "description": "Marine anchoring and chain systems"
+  }
+]
