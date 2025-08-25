@@ -54,12 +54,9 @@ const ProductDetail = () => {
                 
                 <div className="flex items-center gap-4 mb-6">
                   <span className="badge badge-primary badge-lg">{product.category}</span>
-                  <span className="text-lg text-gray-600">by {product.brand}</span>
                 </div>
 
-                <div className="text-3xl font-bold text-blue-600 mb-6">
-                  {product.price}
-                </div>
+            
 
                 <div className="prose max-w-none mb-8">
                   <p className="text-lg text-gray-600">
@@ -133,7 +130,6 @@ const ProductDetail = () => {
                     <p className="text-gray-600">{relatedProduct.description}</p>
                     <div className="flex justify-between items-center mt-4">
                       <span className="badge badge-primary">{relatedProduct.category}</span>
-                      <span className="text-lg font-bold text-blue-600">{relatedProduct.price}</span>
                     </div>
                     <div className="card-actions justify-end mt-4">
                       <Link to={`/product/${relatedProduct.id}`} className="btn btn-primary btn-sm">

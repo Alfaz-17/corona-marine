@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import FloatingCallButton from './components/Common/FloatingCallButton';
-
 // Pages
 import Home from './pages/Home';
 import About from './pages/About';
@@ -16,9 +15,10 @@ import Brands from './pages/Brands';
 import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
 import Contact from './pages/Contact';
-
+import Loader from './components/Common/Loader';
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+const [loading,setLoading] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -35,11 +35,16 @@ function App() {
     localStorage.setItem('theme', newTheme);
   };
 
+  if(loading){
+    return <Loader/>
+  }
+
+
   return (
+   
     <Router>
       <div className="min-h-screen flex flex-col">
         <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        
         <main className="flex-grow">
           <AnimatePresence mode="wait">
             <Routes>

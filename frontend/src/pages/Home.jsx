@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Award, Clock, Users } from 'lucide-react';
+import { ArrowRight, Shield, Award, Clock, Users, Loader } from 'lucide-react';
 import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
 import brandsData from '../data/brands.json';
@@ -10,13 +10,14 @@ import blogsData from '../data/blogs.json';
 const Home = () => {
   const featuredProducts = productsData.filter(product => product.featured);
   const latestBlogs = blogsData.slice(0, 3);
-
   const stats = [
     { icon: Shield, label: 'Years of Experience', value: '35+' },
     { icon: Award, label: 'Satisfied Clients', value: '1000+' },
     { icon: Clock, label: '24/7 Support', value: 'Available' },
     { icon: Users, label: 'Expert Team', value: '50+' },
   ];
+
+ 
 
   return (
     <div>
@@ -28,7 +29,7 @@ const Home = () => {
   }}
 >
   {/* Dark navy overlay for contrast */}
-  <div className="hero-overlay   "></div>
+  <div className="hero-overlay bg-neutral-navy opacity-50"></div>
 
   <div className="hero-content text-center text-neutral-white">
     <motion.div
@@ -291,7 +292,6 @@ const Home = () => {
 </section>
 
 
-      {/* Featured Brands */}
       {/* Trusted Brands */}
 <section className="py-20 bg-neutral-graylight">
   <div className="container mx-auto px-4">

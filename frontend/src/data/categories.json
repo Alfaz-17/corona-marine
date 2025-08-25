@@ -2,37 +2,31 @@
   {
     "id": 1,
     "name": "Engines",
-    "icon": "⚙️",
     "description": "Marine diesel engines and power systems"
   },
   {
     "id": 2,
     "name": "Electronics",
-    "icon": "📡",
     "description": "Navigation, communication and electronic systems"
   },
   {
     "id": 3,
     "name": "Safety Equipment",
-    "icon": "🦺",
     "description": "Marine safety and emergency equipment"
   },
   {
     "id": 4,
     "name": "Propulsion",
-    "icon": "🚁",
     "description": "Propellers, shafts and propulsion systems"
   },
   {
     "id": 5,
     "name": "Anchoring",
-    "icon": "⚓",
     "description": "Anchors, chains and mooring equipment"
   },
   {
     "id": 6,
     "name": "Deck Equipment",
-    "icon": "🔧",
     "description": "Deck hardware and marine accessories"
   }
 ]

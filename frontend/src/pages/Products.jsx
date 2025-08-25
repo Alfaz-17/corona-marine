@@ -4,23 +4,20 @@ import { motion } from 'framer-motion';
 import { Search, Filter } from 'lucide-react';
 import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
-import brandsData from '../data/brands.json';
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedBrand, setSelectedBrand] = useState('');
 
   const filteredProducts = useMemo(() => {
     return productsData.filter(product => {
       const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            product.description.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = !selectedCategory || product.category === selectedCategory;
-      const matchesBrand = !selectedBrand || product.brand === selectedBrand;
       
-      return matchesSearch && matchesCategory && matchesBrand;
+      return matchesSearch && matchesCategory ;
     });
-  }, [searchTerm, selectedCategory, selectedBrand]);
+  }, [searchTerm, selectedCategory]);
 
   return (
     <div>
@@ -118,33 +115,13 @@ const Products = () => {
               </select>
             </div>
 
-            {/* Brands */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text  font-semibold text-marine-navy">
-                  Brand
-                </span>
-              </label>
-              <select
-                className="select w-full select-bordered border-marine-aqua/50 focus:border-marine-blue"
-                value={selectedBrand}
-                onChange={(e) => setSelectedBrand(e.target.value)}
-              >
-                <option value="">All Brands</option>
-                {brandsData.map((brand) => (
-                  <option key={brand.id} value={brand.name}>
-                    {brand.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+    
 
             <button
               className="btn btn-sm mt-4 bg-marine-aqua text-white border-none hover:bg-marine-blue"
               onClick={() => {
                 setSearchTerm("");
                 setSelectedCategory("");
-                setSelectedBrand("");
               }}
             >
               Clear Filters
@@ -154,68 +131,63 @@ const Products = () => {
       </div>
 
       {/* Product Grid */}
-      <div className="lg:col-span-3">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-marine-navy">
-            Products ({filteredProducts.length})
-          </h2>
-        </div>
+    <div className="lg:col-span-3">
+  <div className="flex justify-between items-center mb-6">
+    <h2 className="text-2xl font-bold text-marine-navy">
+      Products ({filteredProducts.length})
+    </h2>
+  </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filteredProducts.map((product, index) => (
-            <motion.div
-              key={product.id}
-              className="card bg-white shadow-lg hover:shadow-xl transition-shadow "
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    {filteredProducts.map((product, index) => (
+      <motion.div
+        key={product.id}
+        className="card bg-white shadow-lg hover:shadow-xl transition-shadow"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.1 }}
+      >
+        {/* Image (5 ratio height) */}
+        <figure>
+          <img
+            src={product.image}
+            alt={product.title}
+            className="w-full h-60 object-cover"
+          />
+        </figure>
+
+        {/* Content (1 ratio height) */}
+        <div className="card-body p-4">
+          <h3 className="text-lg font-bold text-marine-navy truncate">
+            {product.title}
+          </h3>
+
+          <div className="flex justify-between items-center mt-2">
+            <span className="badge bg-marine-aqua text-white border-none badge-sm">
+              {product.category}
+            </span>
+
+            <Link
+              to={`/product/${product.id}`}
+              className="text-marine-blue text-sm font-medium hover:underline"
             >
-              <figure>
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="w-full h-48 object-cover"
-                />
-              </figure>
-              <div className="card-body">
-                <h3 className="card-title text-marine-navy">
-                  {product.title}
-                </h3>
-                <p className="text-gray-600">{product.description}</p>
-
-                <div className="flex justify-between items-center mt-4">
-                  <div className="space-y-1">
-                    <span className="badge bg-marine-aqua text-white border-none badge-sm">
-                      {product.category}
-                    </span>
-                    <div className="text-sm text-gray-500">{product.brand}</div>
-                  </div>
-                  <span className="text-lg font-bold text-marine-blue">
-                    {product.price}
-                  </span>
-                </div>
-
-                <div className="card-actions justify-end mt-4">
-                  <Link
-                    to={`/product/${product.id}`}
-                    className="btn btn-sm bg-marine-aqua text-white border-none hover:bg-marine-blue"
-                  >
-                    View Product
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {filteredProducts.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-xl text-gray-500">
-              No products found matching your criteria.
-            </p>
+              Read More →
+            </Link>
           </div>
-        )}
-      </div>
+        </div>
+      </motion.div>
+    ))}
+  </div>
+
+  {filteredProducts.length === 0 && (
+    <div className="text-center py-12">
+      <p className="text-xl text-gray-500">
+        No products found matching your criteria.
+      </p>
+    </div>
+  )}
+</div>
+
     </div>
   </div>
 </section>

@@ -52,10 +52,7 @@ const BlogDetail = () => {
                     day: 'numeric'
                   })}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <User className="w-5 h-5" />
-                  <span>{blog.author}</span>
-                </div>
+              
               </div>
 
               {/* Share Buttons */}
@@ -115,24 +112,8 @@ const BlogDetail = () => {
               </div>
             </div>
 
-            {/* Author Bio */}
-            <div className="card bg-base-200 mt-12">
-              <div className="card-body">
-                <div className="flex items-center gap-4">
-                  <div className="avatar">
-                    <div className="w-16 rounded-full">
-                      <img src="https://images.pexels.com/photos/1102341/pexels-photo-1102341.jpeg" alt={blog.author} />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-slate-800">{blog.author}</h3>
-                    <p className="text-gray-600">
-                      Marine industry expert with over 20 years of experience in maritime operations and safety.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          
+          
           </motion.div>
         </div>
       </article>

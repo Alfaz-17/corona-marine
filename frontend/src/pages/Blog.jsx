@@ -10,8 +10,7 @@ const Blog = () => {
   const filteredBlogs = useMemo(() => {
     return blogsData.filter(blog =>
       blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      blog.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      blog.author.toLowerCase().includes(searchTerm.toLowerCase())
+      blog.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) 
     );
   }, [searchTerm]);
 
@@ -105,10 +104,7 @@ return (
                       day: 'numeric',
                     })}
                   </div>
-                  <div className="flex items-center gap-1">
-                    <User className="w-4 h-4 text-cyan-500" />
-                    {blog.author}
-                  </div>
+                
                 </div>
 
                 <div className="card-actions justify-end">
