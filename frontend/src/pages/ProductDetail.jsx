@@ -1,12 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Phone, Mail } from 'lucide-react';
-import productsData from '../data/products.json';
+import axios from 'axios';
+import api from '../utils/api';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const product = productsData.find(p => p.id === parseInt(id));
+  const [product, setProduct] = useState(null);
+const [relatedProducts, setRelatedProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch product details from API
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        const { data } = await api.get(`/products/${id}`);
+        setProduct(data);
+      
+
+
+        // Fetch related products
+        const relatedRes = await api.get(`/products?category=${data.category}`);
+      
+        const related = relatedRes.data.filter(p => p._id !== data._id).slice(0, 3);
+       console.log(related)
+        setRelatedProducts(related);
+        
+      } catch (err) {
+        console.error("Error fetching product:", err);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-xl">Loading...</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -18,10 +57,6 @@ const ProductDetail = () => {
       </div>
     );
   }
-
-  const relatedProducts = productsData.filter(p => 
-    p.category === product.category && p.id !== product.id
-  ).slice(0, 3);
 
   return (
     <div>
@@ -53,19 +88,12 @@ const ProductDetail = () => {
                 </h1>
                 
                 <div className="flex items-center gap-4 mb-6">
-                  <span className="badge badge-primary badge-lg">{product.category}</span>
+                  <span className="badge badge-primary badge-lg">{product.category.name}</span>
                 </div>
-
-            
 
                 <div className="prose max-w-none mb-8">
                   <p className="text-lg text-gray-600">
                     {product.description}
-                  </p>
-                  <p className="text-gray-600">
-                    This premium marine equipment is designed to meet the highest industry standards 
-                    and provide reliable performance in demanding maritime environments. Our product 
-                    comes with comprehensive warranty coverage and full technical support.
                   </p>
                 </div>
 
@@ -101,48 +129,57 @@ const ProductDetail = () => {
       </section>
 
       {/* Related Products */}
-      {relatedProducts.length > 0 && (
-        <section className="py-20 bg-base-200">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-marine-navy mb-12 text-center">
-              Related Products
-            </h2>
+    {/* Related Products */}
+{relatedProducts.length > 0 && (
+  <section className="py-20 bg-base-200">
+    <div className="container mx-auto px-4">
+      <h2 className="text-3xl font-bold text-marine-navy mb-12 text-center">
+        Related Products
+      </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedProducts.map((relatedProduct, index) => (
-                <motion.div
-                  key={relatedProduct.id}
-                  className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {relatedProducts.map((relatedProduct, index) => (
+          <motion.div
+            key={relatedProduct._id}
+            className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+            viewport={{ once: true }}
+          >
+            <figure>
+              <img
+                src={relatedProduct.image}
+                alt={relatedProduct.title}
+                className="w-full h-48 object-cover"
+              />
+            </figure>
+            <div className="card-body">
+              <h3 className="card-title text-slate-800">
+                {relatedProduct.title}
+              </h3>
+              <p className="text-gray-600">{relatedProduct.description}</p>
+              <div className="flex justify-between items-center mt-4">
+                <span className="badge badge-primary">
+                  {relatedProduct.category?.name}
+                </span>
+              </div>
+              <div className="card-actions justify-end mt-4">
+                <Link
+                  to={`/product/${relatedProduct._id}`}
+                  className="btn btn-primary btn-sm"
                 >
-                  <figure>
-                    <img
-                      src={relatedProduct.image}
-                      alt={relatedProduct.title}
-                      className="w-full h-48 object-cover"
-                    />
-                  </figure>
-                  <div className="card-body">
-                    <h3 className="card-title text-slate-800">{relatedProduct.title}</h3>
-                    <p className="text-gray-600">{relatedProduct.description}</p>
-                    <div className="flex justify-between items-center mt-4">
-                      <span className="badge badge-primary">{relatedProduct.category}</span>
-                    </div>
-                    <div className="card-actions justify-end mt-4">
-                      <Link to={`/product/${relatedProduct.id}`} className="btn btn-primary btn-sm">
-                        View Product
-                      </Link>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+                  View Product
+                </Link>
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
     </div>
   );
 };

@@ -75,3 +75,21 @@ const token =generateToken(res,user._id);
     res.status(500).json({ error: "Internal server error", details: error.message });
   }
 };
+
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.status(200).json({ message: "Successfully logged out" });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error", details: error.message });
+  }
+};
+
+export const getMe = async (req, res) => {
+  try {
+    res.json({ id: req.user.id, email: req.user.email });
+  } catch (error) {
+    res.status(500).json({ message: "internal server error" });
+    console.log("error in get me controller", error);
+  }
+};

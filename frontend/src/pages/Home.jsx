@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Award, Clock, Users, Loader } from 'lucide-react';
@@ -6,19 +6,62 @@ import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
 import brandsData from '../data/brands.json';
 import blogsData from '../data/blogs.json';
+import api from '../utils/api';
 
 const Home = () => {
-  const featuredProducts = productsData.filter(product => product.featured);
-  const latestBlogs = blogsData.slice(0, 3);
+  // const latestBlogs = blogsData.slice(0, 3);
   const stats = [
     { icon: Shield, label: 'Years of Experience', value: '35+' },
     { icon: Award, label: 'Satisfied Clients', value: '1000+' },
     { icon: Clock, label: '24/7 Support', value: 'Available' },
     { icon: Users, label: 'Expert Team', value: '50+' },
   ];
+    const [categories, setCategories] = useState([]);
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const productsData = featuredProducts.filter(product => product.featured);
+  const [latestBlogs, setLatestBlogs] = useState([]);
 
- 
+    useEffect(() => {
+    const fetchFeaturedProducts = async () => {
+      try {
+        const res = await api.get("/products");
+        setFeaturedProducts(res.data);
+      } catch (error) {
+        console.error("Error fetching featured products:", error);
+      } 
+    };
 
+    fetchFeaturedProducts();
+  }, []);
+
+   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await api.get("/categories"); // 🔹 Replace with your API route
+        setCategories(res.data);
+      } catch (err) {
+        console.error("Error fetching categories:", err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  
+  useEffect(() => {
+    const fetchLatestBlogs = async () => {
+      try {
+        // adjust API endpoint based on your backend
+        const res = await api.get("/blogs"); 
+        setLatestBlogs(res.data);
+      } catch (error) {
+        console.error("Error fetching latest blogs:", error);
+      }
+    };
+
+    fetchLatestBlogs();
+  }, []);
+
+  
   return (
     <div>
       {/* Hero Section */}
@@ -149,147 +192,143 @@ const Home = () => {
 
 
       {/* Product Categories */}
-    <section className="py-20 bg-neutral-graylight">
-  <div className="container mx-auto px-4">
-    <motion.div
-      className="text-center mb-16"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-    >
-      {/* Heading in Marine Navy */}
-      <h2 className="text-4xl font-bold text-marine-navy mb-4">
-        Product Categories
-      </h2>
-
-      {/* Subtext in Neutral Gray Cool */}
-      <p className="text-xl text-neutral-graycool">
-        Comprehensive range of marine equipment and services
-      </p>
-    </motion.div>
-
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {categoriesData.map((category, index) => (
+ <section className="py-20 bg-neutral-graylight">
+      <div className="container mx-auto px-4">
         <motion.div
-          key={category.id}
-          className="card bg-neutral-white shadow-lg hover:shadow-xl border border-neutral-graylight transition-shadow"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
           viewport={{ once: true }}
         >
-          <div className="card-body text-center">
-            {/* Icon in Marine Aqua for accent */}
-            <div className="text-4xl mb-4 text-marine-aqua">{category.icon}</div>
-
-            {/* Title in Marine Navy */}
-            <h3 className="card-title justify-center text-marine-navy">
-              {category.name}
-            </h3>
-
-            {/* Description in Gray Cool */}
-            <p className="text-neutral-graycool">{category.description}</p>
-
-            {/* Button with Marine Blue background & hover Navy */}
-            <div className="card-actions justify-center mt-4">
-              <Link
-                to="/products"
-                className="btn bg-marine-blue hover:bg-marine-navy text-white border-none btn-sm"
-              >
-                View More
-              </Link>
-            </div>
-          </div>
+          <h2 className="text-4xl font-bold text-marine-navy mb-4">
+            Product Categories
+          </h2>
+          <p className="text-xl text-neutral-graycool">
+            Comprehensive range of marine equipment and services
+          </p>
         </motion.div>
-      ))}
-    </div>
-  </div>
-</section>
+
+        {/* Categories Grid */}
+      {/* Categories Grid */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {categories.slice(0, 6).map((category, index) => (
+    <motion.div
+      key={category._id}
+      className="card bg-neutral-white shadow-lg hover:shadow-xl border border-neutral-graylight transition-shadow"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      viewport={{ once: true }}
+    >
+      <div className="card-body text-center">
+        {/* Icon OR Image */}
+        {category.icon ? (
+          <div className="text-4xl mb-4 text-marine-aqua">
+            {category.icon}
+          </div>
+        ) : (
+          <img
+            src={category.image}
+            alt={category.name}
+            className="h-16 mx-auto mb-4 object-contain"
+          />
+        )}
+
+        <h3 className="card-title justify-center text-marine-navy">
+          {category.name}
+        </h3>
+        <p className="text-neutral-graycool">{category.description}</p>
+
+        <div className="card-actions justify-center mt-4">
+          <Link
+            to={`/products?category=${category._id}`}
+            className="btn bg-marine-blue hover:bg-marine-navy text-white border-none btn-sm"
+          >
+            View More
+          </Link>
+        </div>
+      </div>
+    </motion.div>
+  ))}
+</div>
+
+      </div>
+    </section>
+
 
 
       {/* Featured Products */}
    {/* Featured Products */}
-<section className="py-20 bg-neutral-graylight">
-  <div className="container mx-auto px-4">
-    <motion.div
-      className="text-center mb-16"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-    >
-      {/* Heading in Marine Navy */}
-      <h2 className="text-4xl font-bold text-marine-navy mb-4">
-        Featured Products
-      </h2>
-
-      {/* Subtext in Neutral Gray Cool */}
-      <p className="text-xl text-neutral-graycool">
-        Our most popular and trusted marine solutions
-      </p>
-    </motion.div>
-
-    {/* Cards */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {featuredProducts.map((product, index) => (
+ <section className="py-20 bg-neutral-graylight">
+      <div className="container mx-auto px-4">
         <motion.div
-          key={product.id}
-          className="card bg-neutral-white border border-neutral-graylight shadow-lg hover:shadow-xl transition-all hover:border-marine-aqua"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
           viewport={{ once: true }}
         >
-          {/* Product Image */}
-          <figure>
-            <img
-              src={product.image}
-              alt={product.title}
-              className="w-full h-48 object-cover"
-            />
-          </figure>
-
-          {/* Card Content */}
-          <div className="card-body">
-            <h3 className="card-title text-marine-navy">{product.title}</h3>
-            <p className="text-neutral-graycool">{product.description}</p>
-
-            <div className="flex justify-between items-center mt-4">
-              {/* Badge in Marine Aqua */}
-              <span className="badge bg-marine-aqua text-marine-navy border-none">
-                {product.category}
-              </span>
-
-              {/* Price in Marine Blue */}
-              <span className="text-lg font-bold text-marine-blue">
-                {product.price}
-              </span>
-            </div>
-
-            {/* CTA Button */}
-            <div className="card-actions justify-end mt-4">
-              <Link
-                to={`/product/${product.id}`}
-                className="btn bg-marine-blue hover:bg-marine-navy text-white border-none btn-sm"
-              >
-                View Product
-              </Link>
-            </div>
-          </div>
+          <h2 className="text-4xl font-bold text-marine-navy mb-4">
+            Featured Products
+          </h2>
+          <p className="text-xl text-neutral-graycool">
+            Our most popular and trusted marine solutions
+          </p>
         </motion.div>
-      ))}
-    </div>
 
-    {/* View All CTA */}
-    <div className="text-center mt-12">
-      <Link
-        to="/products"
-        className="btn bg-marine-blue hover:bg-marine-navy text-white border-none"
-      >
-        View All Products
-      </Link>
-    </div>
-  </div>
-</section>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {productsData.map((product, index) => (
+            <motion.div
+                key={product._id}
+                className="card bg-neutral-white border border-neutral-graylight shadow-lg hover:shadow-xl transition-all hover:border-marine-aqua"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <figure>
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="w-full h-48 object-cover"
+                  />
+                </figure>
+
+                <div className="card-body">
+                  <h3 className="card-title text-marine-navy">{product.title}</h3>
+                  <p className="text-neutral-graycool">{product.description}</p>
+
+                  <div className="flex justify-between items-center mt-4">
+                    <span className="badge bg-marine-aqua text-marine-navy border-none">
+                      {product.category?.name || "General"}
+                    </span>
+                    <span className="text-lg font-bold text-marine-blue">
+                      ${product.price}
+                    </span>
+                  </div>
+
+                  <div className="card-actions justify-end mt-4">
+                    <Link
+                      to={`/product/${product._id}`}
+                      className="btn bg-marine-blue hover:bg-marine-navy text-white border-none btn-sm"
+                    >
+                      View Product
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+        <div className="text-center mt-12">
+          <Link
+            to="/products"
+            className="btn bg-marine-blue hover:bg-marine-navy text-white border-none"
+          >
+            View All Products
+          </Link>
+        </div>
+      </div>
+    </section>
 
 
       {/* Trusted Brands */}
@@ -349,73 +388,70 @@ const Home = () => {
 
 
       {/* Latest Blog Posts */}
-    {/* Latest News & Insights */}
 <section className="py-20 bg-neutral-graylight">
-  <div className="container mx-auto px-4">
-    <motion.div
-      className="text-center mb-16"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-    >
-      {/* Heading */}
-      <h2 className="text-4xl font-bold text-marine-navy mb-4">
-        Latest News & Insights
-      </h2>
-      <p className="text-xl text-neutral-graycool">
-        Stay updated with marine industry trends and tips
-      </p>
-    </motion.div>
-
-    {/* Blog Cards */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {latestBlogs.map((blog, index) => (
+      <div className="container mx-auto px-4">
         <motion.div
-          key={blog.id}
-          className="card bg-neutral-white border border-neutral-graylight shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
           viewport={{ once: true }}
         >
-          <figure>
-            <img
-              src={blog.image}
-              alt={blog.title}
-              className="w-full h-48 object-cover rounded-t-lg"
-            />
-          </figure>
-          <div className="card-body">
-            <h3 className="card-title text-marine-navy">{blog.title}</h3>
-            <p className="text-neutral-graycool">{blog.excerpt}</p>
-
-            <div className="flex justify-between items-center mt-4">
-              <span className="text-sm text-neutral-graycool">
-                {new Date(blog.date).toLocaleDateString()}
-              </span>
-              <Link
-                to={`/blog/${blog.id}`}
-                className="btn bg-marine-blue hover:bg-marine-navy text-white border-none btn-sm"
-              >
-                Read More
-              </Link>
-            </div>
-          </div>
+          <h2 className="text-4xl font-bold text-marine-navy mb-4">
+            Latest News & Insights
+          </h2>
+          <p className="text-xl text-neutral-graycool">
+            Stay updated with marine industry trends and tips
+          </p>
         </motion.div>
-      ))}
-    </div>
 
-    {/* View All CTA */}
-    <div className="text-center mt-12">
-      <Link
-        to="/blog"
-        className="btn bg-marine-blue hover:bg-marine-navy text-white border-none"
-      >
-        View All Articles
-      </Link>
-    </div>
-  </div>
-</section>
+   
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {latestBlogs.map((blog, index) => (
+              <motion.div
+                key={blog._id}
+                className="card bg-neutral-white border border-neutral-graylight shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <figure>
+                  <img
+                    src={blog.image}
+                    alt={blog.title}
+                    className="w-full h-48 object-cover rounded-t-lg"
+                  />
+                </figure>
+                <div className="card-body">
+                  <h3 className="card-title text-marine-navy">{blog.title}</h3>
+                  <p className="text-neutral-graycool">{blog.excerpt}</p>
+
+                  <div className="flex justify-between items-center mt-4">
+                    <span className="text-sm text-neutral-graycool">
+                      {new Date(blog.date).toLocaleDateString()}
+                    </span>
+                    <Link
+                      to={`/blog/${blog._id}`}
+                      className="btn bg-marine-blue hover:bg-marine-navy text-white border-none btn-sm"
+                    >
+                      Read More
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+     
+        <div className="text-center mt-12">
+          <Link
+            to="/blog"
+            className="btn bg-marine-blue hover:bg-marine-navy text-white border-none"
+          >
+            View All Articles
+          </Link>
+        </div>
+      </div>
+    </section>
 
     </div>
   );

@@ -5,8 +5,15 @@ import jwt from "jsonwebtoken";
   if (!token) return res.status(401).json({ error: "Unauthorized" });
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+
+      if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+    
+    req.user = user;
     next();
   } catch (err) {
     res.status(403).json({ error: "Invalid token" });

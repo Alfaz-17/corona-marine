@@ -1,25 +1,57 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, User, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
-import blogsData from '../data/blogs.json';
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowLeft, Calendar, Share2, Facebook, Twitter, Linkedin } from "lucide-react";
+import api from "../utils/api"; // your axios instance
 
 const BlogDetail = () => {
   const { id } = useParams();
-  const blog = blogsData.find(b => b.id === parseInt(id));
+  const [blog, setBlog] = useState(null);
+  const [relatedBlogs, setRelatedBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!blog) {
+  // Fetch single blog + related blogs
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        setLoading(true);
+        const { data } = await api.get("/blogs"); // fetch all blogs
+        const foundBlog = data.find((b) => b._id === id);
+        if (!foundBlog) {
+          setError("Blog not found");
+        } else {
+          setBlog(foundBlog);
+          setRelatedBlogs(data.filter((b) => b._id !== foundBlog._id).slice(0, 3));
+        }
+      } catch (err) {
+        setError("Failed to fetch blog");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlog();
+  }, [id]);
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+
+  if (error || !blog) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-marine-navy mb-4">Article Not Found</h2>
-          <Link to="/blog" className="btn btn-primary">Back to Blog</Link>
+          <h2 className="text-2xl font-bold text-marine-navy mb-4">
+            {error || "Article Not Found"}
+          </h2>
+          <Link to="/blog" className="btn btn-primary">
+            Back to Blog
+          </Link>
         </div>
       </div>
     );
   }
-
-  const relatedBlogs = blogsData.filter(b => b.id !== blog.id).slice(0, 3);
 
   const shareUrl = window.location.href;
   const shareText = `Check out this article: ${blog.title}`;
@@ -28,10 +60,7 @@ const BlogDetail = () => {
     <div>
       <article className="py-20 bg-base-100">
         <div className="container mx-auto px-4 max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <Link to="/blog" className="btn btn-ghost mb-6">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Blog
@@ -42,17 +71,18 @@ const BlogDetail = () => {
               <h1 className="text-4xl lg:text-5xl font-bold text-slate-800 mb-6 leading-tight">
                 {blog.title}
               </h1>
-              
+
               <div className="flex flex-wrap items-center gap-6 text-gray-600 mb-6">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-5 h-5" />
-                  <span>{new Date(blog.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}</span>
+                  <span>
+                    {new Date(blog.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
                 </div>
-              
               </div>
 
               {/* Share Buttons */}
@@ -63,7 +93,9 @@ const BlogDetail = () => {
                 </span>
                 <div className="flex gap-2">
                   <a
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                      shareUrl
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-circle btn-sm btn-outline"
@@ -71,7 +103,9 @@ const BlogDetail = () => {
                     <Facebook className="w-4 h-4" />
                   </a>
                   <a
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`}
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                      shareText
+                    )}&url=${encodeURIComponent(shareUrl)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-circle btn-sm btn-outline"
@@ -79,7 +113,9 @@ const BlogDetail = () => {
                     <Twitter className="w-4 h-4" />
                   </a>
                   <a
-                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                      shareUrl
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-circle btn-sm btn-outline"
@@ -101,19 +137,14 @@ const BlogDetail = () => {
 
             {/* Article Content */}
             <div className="prose prose-lg max-w-none">
-              <p className="text-xl text-gray-600 mb-6 font-medium">
-                {blog.excerpt}
-              </p>
-              
+              <p className="text-xl text-gray-600 mb-6 font-medium">{blog.excerpt}</p>
+
               <div className="text-gray-700 leading-relaxed space-y-6">
-                {blog.content.split('\n\n').map((paragraph, index) => (
+                {blog.content.split("\n\n").map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
               </div>
             </div>
-
-          
-          
           </motion.div>
         </div>
       </article>
@@ -129,7 +160,7 @@ const BlogDetail = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {relatedBlogs.map((relatedBlog, index) => (
                 <motion.article
-                  key={relatedBlog.id}
+                  key={relatedBlog._id}
                   className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -145,9 +176,7 @@ const BlogDetail = () => {
                   </figure>
                   <div className="card-body">
                     <h3 className="card-title text-slate-800 hover:text-blue-600 transition-colors">
-                      <Link to={`/blog/${relatedBlog.id}`}>
-                        {relatedBlog.title}
-                      </Link>
+                      <Link to={`/blog/${relatedBlog._id}`}>{relatedBlog.title}</Link>
                     </h3>
                     <p className="text-gray-600">{relatedBlog.excerpt}</p>
                     <div className="flex items-center gap-4 text-sm text-gray-500 mt-4">
@@ -157,7 +186,7 @@ const BlogDetail = () => {
                       </div>
                     </div>
                     <div className="card-actions justify-end mt-4">
-                      <Link to={`/blog/${relatedBlog.id}`} className="btn btn-primary btn-sm">
+                      <Link to={`/blog/${relatedBlog._id}`} className="btn btn-primary btn-sm">
                         Read More
                       </Link>
                     </div>

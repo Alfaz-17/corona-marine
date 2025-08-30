@@ -1,106 +1,136 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Anchor, Menu, X, Phone } from 'lucide-react';
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Anchor, Menu, X, Phone } from "lucide-react";
 
 const Header = ({ darkMode, toggleDarkMode }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
 
   const navigation = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Products', path: '/products' },
-    { name: 'Brands', path: '/brands' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'Contact', path: '/contact' },
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Products", path: "/products" },
+    { name: "Brands", path: "/brands" },
+    { name: "Blog", path: "/blog" },
+    { name: "Contact", path: "/contact" },
   ];
 
   const isActive = (path) => location.pathname === path;
 
   return (
-<header className="navbar bg-gradient-to-r from-marine-navy via-marine-dark to-marine-navy text-neutral-white shadow-lg sticky top-0 z-50">
-  <div className="navbar-start">
-    <Link to="/" className="flex items-center btn btn-ghost normal-case text-xl text-neutral-white">
-      <Anchor className="w-7 h-7 text-marine-aqua mr-2 animate-pulse" />
-      <span className="font-extrabold tracking-wide text-lg">Corona Marine</span>
-    </Link>
-  </div>
-
-  {/* Center Menu (Desktop) */}
-  <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal px-1 gap-2">
-      {navigation.map((item) => (
-        <li key={item.name}>
-          <Link
-            to={item.path}
-            className={`relative px-2 py-1 transition-colors duration-300 ${
-              isActive(item.path)
-                ? 'text-marine-aqua font-semibold after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-marine-aqua'
-                : 'text-neutral-graylight hover:text-marine-aqua'
-            }`}
+    <div>
+      {/* HEADER */}
+      <header className="navbar bg-gradient-to-r from-marine-navy via-marine-blue to-marine-navy text-neutral-white shadow-lg sticky top-0 z-40">
+        <div className="navbar-start flex items-center gap-2">
+          {/* Sidebar Toggle (Mobile Only) */}
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="p-2 rounded-full bg-marine-aqua text-marine-navy hover:bg-marine-blue hover:text-white transition lg:hidden"
           >
-            {item.name}
+            {isSidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+
+          {/* Logo */}
+          <Link
+            to="/"
+            className="flex items-center btn btn-ghost normal-case text-xl text-neutral-white"
+          >
+            <Anchor className="w-7 h-7 text-marine-aqua mr-2 animate-pulse" />
+            <span className="font-extrabold tracking-wide text-lg">Corona Marine</span>
           </Link>
-        </li>
-      ))}
-    </ul>
-  </div>
+        </div>
 
-  <div className="navbar-end flex items-center gap-2">
-    {/* Dark Mode Toggle */}
-    <button
-      onClick={toggleDarkMode}
-      className="btn btn-ghost btn-circle text-neutral-white hover:bg-marine-blue transition"
-    >
-      {darkMode ? '🌙' : '☀️'}
-    </button>
-
-    {/* Call Button */}
-    <a
-      href="tel:+1234567890"
-      className="btn bg-marine-aqua hover:bg-marine-blue text-neutral-white hidden sm:flex items-center gap-1 font-medium transition-all"
-    >
-      <Phone className="w-4 h-4" />
-      Call Us Now
-    </a>
-
-    {/* Mobile Menu */}
-    <div className="dropdown lg:hidden relative">
-      <button
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="btn btn-ghost btn-circle text-neutral-white hover:bg-marine-blue transition"
-      >
-        {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-      </button>
-
-      {isMenuOpen && (
-        <motion.ul
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="menu menu-sm dropdown-content mt-3 p-3 shadow-lg bg-marine-blue rounded-xl w-56 right-0 text-neutral-white flex flex-col gap-2"
-        >
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex gap-6">
           {navigation.map((item) => (
-            <li key={item.name}>
-              <Link
-                to={item.path}
-                onClick={() => setIsMenuOpen(false)}
-                className={`px-2 py-1 rounded hover:bg-marine-dark transition ${
-                  isActive(item.path) ? 'bg-marine-aqua text-marine-navy font-semibold' : ''
-                }`}
-              >
-                {item.name}
-              </Link>
-            </li>
+            <Link
+              key={item.name}
+              to={item.path}
+              className={`px-3 py-2 rounded-md font-medium transition-all ${
+                isActive(item.path)
+                  ? "bg-marine-aqua text-marine-navy shadow"
+                  : "hover:bg-marine-blue"
+              }`}
+            >
+              {item.name}
+            </Link>
           ))}
-        </motion.ul>
-      )}
+        </nav>
+
+        <div className="navbar-end flex items-center gap-3">
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={toggleDarkMode}
+            className="btn btn-ghost btn-circle text-neutral-white hover:bg-marine-blue transition"
+          >
+            {darkMode ? "🌙" : "☀️"}
+          </button>
+
+          {/* Call Button */}
+          <a
+            href="tel:+1234567890"
+            className="btn bg-marine-aqua hover:bg-marine-blue text-neutral-white hidden sm:flex items-center gap-1 font-medium transition-all"
+          >
+            <Phone className="w-4 h-4" />
+            Call Us Now
+          </a>
+        </div>
+      </header>
+
+      {/* SIDEBAR (Mobile Nav) */}
+      <motion.aside
+        initial={{ x: -260 }}
+        animate={{ x: isSidebarOpen ? 0 : -260 }}
+        transition={{ type: "spring", stiffness: 80 }}
+        className="fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-marine-navy via-marine-blue to-marine-navy text-neutral-white shadow-2xl z-50 flex flex-col lg:hidden"
+      >
+        {/* Logo (Sidebar version) */}
+        <div className="flex items-center gap-2 px-6 py-5 border-b border-marine-blue">
+          <Anchor className="w-7 h-7 text-marine-aqua animate-pulse" />
+          <span className="font-extrabold tracking-wide text-lg">Corona Marine</span>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 px-4 py-6">
+          <ul className="flex flex-col gap-2">
+            {navigation.map((item) => (
+              <li key={item.name}>
+                <Link
+                  to={item.path}
+                  onClick={() => setIsSidebarOpen(false)}
+                  className={`block px-4 py-2 rounded-lg transition-all ${
+                    isActive(item.path)
+                      ? "bg-marine-aqua text-marine-navy font-semibold shadow"
+                      : "hover:bg-marine-blue"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Sidebar Footer */}
+        <div className="px-6 py-4 border-t border-marine-blue flex flex-col gap-3">
+          <button
+            onClick={toggleDarkMode}
+            className="w-full py-2 rounded-lg bg-marine-blue hover:bg-marine-aqua hover:text-marine-navy transition"
+          >
+            {darkMode ? "🌙 Dark Mode" : "☀️ Light Mode"}
+          </button>
+
+          <a
+            href="tel:+1234567890"
+            className="flex items-center justify-center gap-2 w-full py-2 rounded-lg bg-marine-aqua text-marine-navy font-semibold hover:bg-marine-blue hover:text-white transition"
+          >
+            <Phone className="w-4 h-4" />
+            Call Us Now
+          </a>
+        </div>
+      </motion.aside>
     </div>
-  </div>
-</header>
-
-
   );
 };
 
