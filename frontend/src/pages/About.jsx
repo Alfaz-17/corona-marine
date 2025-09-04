@@ -28,239 +28,83 @@ const About = () => {
   ];
 
   return (
-    <div>
-      {/* Hero Section */}
- {/* Hero Section */}
-<section
-  className="hero min-h-96 relative"
-  style={{
-       backgroundImage: "url('/assets/about.png')",
+<div>
+  {/* Hero Section */}
+  <section
+    className="hero min-h-96 relative"
+    style={{ backgroundImage: "url('/assets/about.png')" }}
+  >
+    <div className="hero-overlay"></div>
 
-  }}
->
-  {/* Deep Marine Overlay */}
-  <div className="hero-overlay  "></div>
-
-  <div className="hero-content text-center text-neutral-white">
-    <motion.div
-      className="max-w-4xl"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
-    >
-      <h1 className="font-heading mb-5 text-5xl font-bold text-marine-sky">
-        About MarineServ
-      </h1>
-      <p classname="font-sans  mb-5 text-xl text-neutral-graylight">
-        Your trusted partner in marine services since 1985
-      </p>
-    </motion.div>
-  </div>
-</section>
-
-      {/* Company Profile */}
-    <section className="py-20 bg-neutral-white">
-  <div className="container mx-auto px-4">
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      {/* Left Content */}
+    <div className="hero-content text-center text-neutral-white">
       <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
+        className="max-w-4xl"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
       >
-        <h2 className="font-heading text-4xl font-bold text-marine-navy mb-6">
-          Our Story
-        </h2>
-        <p classname="font-sans text-lg text-marine-blue mb-6">
-          Founded in 1985, MarineServ has grown from a small maritime parts
-          supplier to become one of the most trusted names in marine services.
-          Our journey began with a simple mission: to provide reliable,
-          high-quality marine equipment and exceptional service to the maritime
-          industry.
+        <h1 className="font-heading mb-5 text-5xl font-bold text-marine-sky">
+          About Corona Marine
+        </h1>
+        <p className="font-sans mb-5 text-xl text-neutral-graylight">
+          Empowering the maritime industry through intelligent automation since 2005.
         </p>
-        <p classname="font-sans text-lg text-marine-blue mb-6">
-          Over the decades, we have built strong relationships with leading
-          manufacturers and suppliers worldwide, enabling us to offer
-          comprehensive solutions for all types of marine vessels and offshore
-          installations.
-        </p>
-        <p classname="font-sans text-lg text-marine-blue mb-8">
-          Today, we serve customers across six continents, maintaining the same
-          commitment to quality and customer satisfaction that has been our
-          foundation since day one.
-        </p>
-        <Link
-          to="/about"
-          className="btn bg-marine-aqua border-none hover:bg-marine-seafoam text-neutral-white font-semibold rounded-lg shadow-md"
-        >
-          Learn More
-        </Link>
-      </motion.div>
-
-      {/* Right Image */}
-      <motion.div
-        initial={{ opacity: 0, x: 50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-      >
-        <img
-          src="https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg"
-          alt="Marine Operations"
-          className="rounded-2xl shadow-2xl border-4 border-marine-seafoam"
-        />
       </motion.div>
     </div>
-  </div>
-</section>
+  </section>
 
-      {/* Mission, Vision, Values */}
+  {/* Company Profile */}
   <section className="py-20 bg-neutral-white">
-  <div className="container mx-auto px-4">
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-      {/* Mission & Vision */}
-      <div className="space-y-12">
+    <div className="container mx-auto px-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Left Content */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <div className="flex items-center mb-6">
-            <Target className="w-8 h-8 text-marine-aqua mr-3" />
-            <h2 className="font-heading text-3xl font-bold text-marine-navy">Our Mission</h2>
-          </div>
-          <p classname="font-sans text-lg text-marine-blue">
-            To be the leading provider of marine equipment and services,
-            delivering innovative solutions that enhance maritime operations
-            while ensuring safety, reliability, and environmental
-            responsibility.
+          <h2 className="font-heading text-4xl font-bold text-marine-navy mb-6">
+            Our Story
+          </h2>
+          <p className="font-sans text-lg text-marine-blue mb-6">
+            Founded in 1985, Corona Marine started with a clear mission: to transform marine operations 
+            with cutting-edge automation technology. From humble beginnings, we’ve become a trusted name 
+            in marine innovation and control systems.
           </p>
+          <p className="font-sans text-lg text-marine-blue mb-6">
+            We specialize in the integration of intelligent systems that improve vessel safety, 
+            performance, and energy efficiency — tailored for today’s dynamic maritime demands.
+          </p>
+          <p className="font-sans text-lg text-marine-blue mb-8">
+            Our solutions are deployed globally, trusted by commercial fleets, offshore platforms, and 
+            port authorities who depend on automation for reliable, round-the-clock operations.
+          </p>
+          <Link
+            to="/about"
+            className="btn bg-marine-aqua border-none hover:bg-marine-seafoam text-neutral-white font-semibold rounded-lg shadow-md"
+          >
+            Learn More
+          </Link>
         </motion.div>
 
+        {/* Right Image */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <div className="flex items-center mb-6">
-            <Heart className="w-8 h-8 text-marine-seafoam mr-3" />
-            <h2 className="font-heading text-3xl font-bold text-marine-navy">Our Vision</h2>
-          </div>
-          <p classname="font-sans text-lg text-marine-blue">
-            To create a safer, more efficient maritime world by providing
-            cutting-edge marine solutions and fostering long-term partnerships
-            with our clients across the global maritime industry.
-          </p>
+          <img
+            src="https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg"
+            alt="Marine Automation in Action"
+            className="rounded-2xl shadow-2xl border-4 border-marine-seafoam"
+          />
         </motion.div>
       </div>
-
-      {/* Values */}
-      <motion.div
-        initial={{ opacity: 0, x: 50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="font-headingtext-3xl font-bold text-marine-navy mb-8">Our Values</h2>
-        <div className="space-y-6">
-          {values.map((value, index) => (
-            <motion.div
-              key={index}
-              className="flex items-start bg-marine-light/20 p-4 rounded-xl hover:shadow-md transition"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <value.icon className="w-6 h-6 text-marine-aqua mr-4 mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="font-heading text-xl font-semibold text-marine-navy mb-2">
-                  {value.title}
-                </h3>
-                <p classname="font-sans text-marine-blue">{value.description}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
 
-      {/* Team Section */}
-    <section className="py-20 bg-neutral-white">
-  <div className="container mx-auto px-4">
-    {/* Heading */}
-    <motion.div
-      className="text-center mb-16"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-    >
-      <h2 className="font-heading text-4xl font-bold text-marine-navy mb-4">
-        Our Expert Team
-      </h2>
-      <p classname="font-sans text-xl text-marine-blue">
-        Experienced professionals dedicated to your success
-      </p>
-    </motion.div>
-
-    {/* Team Members */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {[
-        {
-          name: 'Captain James Morrison',
-          role: 'Chief Executive Officer',
-          image:
-            'https://images.pexels.com/photos/1102341/pexels-photo-1102341.jpeg',
-        },
-        {
-          name: 'Dr. Sarah Chen',
-          role: 'Technical Director',
-          image:
-            'https://images.pexels.com/photos/1102341/pexels-photo-1102341.jpeg',
-        },
-        {
-          name: 'Mike Rodriguez',
-          role: 'Operations Manager',
-          image:
-            'https://images.pexels.com/photos/1102341/pexels-photo-1102341.jpeg',
-        },
-        {
-          name: 'Lisa Thompson',
-          role: 'Customer Relations',
-          image:
-            'https://images.pexels.com/photos/1102341/pexels-photo-1102341.jpeg',
-        },
-      ].map((member, index) => (
-        <motion.div
-          key={index}
-          className="card bg-marine-light/20 shadow-lg rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
-          viewport={{ once: true }}
-        >
-          <figure>
-            <img
-              src={member.image}
-              alt={member.name}
-              className="w-full h-56 object-cover"
-            />
-          </figure>
-          <div className="card-body text-center">
-            <h3 className="font-heading card-title justify-center text-marine-navy text-lg font-bold">
-              {member.name}
-            </h3>
-            <p classname="font-sans text-marine-aqua font-medium">{member.role}</p>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</section>
-
-    </div>
   );
 };
 

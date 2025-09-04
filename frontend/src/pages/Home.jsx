@@ -11,10 +11,10 @@ import api from '../utils/api';
 const Home = () => {
   // const latestBlogs = blogsData.slice(0, 3);
   const stats = [
-    { icon: Shield, label: 'Years of Experience', value: '35+' },
+    { icon: Shield, label: 'Years of Experience', value: '15+' },
     { icon: Award, label: 'Satisfied Clients', value: '1000+' },
     { icon: Clock, label: '24/7 Support', value: 'Available' },
-    { icon: Users, label: 'Expert Team', value: '50+' },
+    { icon: Users, label: 'Expert Team', value: '5+' },
   ];
     const [categories, setCategories] = useState([]);
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -88,7 +88,7 @@ const Home = () => {
 
       <p className="font-sans mb-8 text-xl lg:text-2xl ">
         Providing premium marine equipment and exceptional service to the
-        maritime industry for over 35 years
+        maritime industry for over 15 years
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -153,20 +153,20 @@ const Home = () => {
         viewport={{ once: true }}
       >
         {/* Title in Marine Navy */}
-        <h2 className=" font-heading text-4xl font-bold text-marine-navy mb-6">
-          Leading Marine Services Provider
-        </h2>
+      <h2 className="font-heading text-4xl font-bold text-marine-navy mb-6">
+  Experts in Marine Automation Solutions
+</h2>
 
-        {/* Paragraphs in Neutral Gray Cool */}
-        <p className="text-lg text-neutral-graycool mb-6">
-          With over three decades of experience in the marine industry, we specialize in providing 
-          high-quality marine equipment, parts, and services to commercial vessels, offshore platforms, 
-          and maritime facilities worldwide.
-        </p>
-        <p className="text-lg text-neutral-graycool mb-8">
-          Our commitment to excellence and customer satisfaction has made us the preferred choice 
-          for marine professionals seeking reliable solutions and expert support.
-        </p>
+{/* Paragraphs in Neutral Gray Cool */}
+<p className="text-lg text-neutral-graycool mb-6">
+  With over three decades of expertise in marine technology, we deliver advanced automation systems 
+  that enhance the efficiency, safety, and performance of vessels, offshore operations, and port facilities.
+</p>
+<p className="text-lg text-neutral-graycool mb-8">
+  From integrated control systems to smart navigation and monitoring tools, our innovative solutions are 
+  trusted by marine professionals worldwide to streamline operations and ensure optimal reliability at sea.
+</p>
+
 
         {/* Primary Button in Marine Blue */}
         <Link to="/about" className="btn bg-marine-blue hover:bg-marine-navy text-white border-none">
@@ -222,7 +222,7 @@ const Home = () => {
     >
       <div className="card-body text-center">
         {/* Icon OR Image */}
-        {category.icon ? (
+        {/* {category.icon ? (
           <div className="text-4xl mb-4 text-marine-aqua">
             {category.icon}
           </div>
@@ -232,7 +232,7 @@ const Home = () => {
             alt={category.name}
             className="h-16 mx-auto mb-4 object-contain"
           />
-        )}
+        )} */}
 
         <h3 className="font-bold font-heading card-title justify-center text-marine-navy">
           {category.name}
