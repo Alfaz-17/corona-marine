@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Package, Grid3X3, Award, FileText, Plus, TrendingUp } from 'lucide-react';
+import api from '../../utils/api';
 
 const Dashboard = () => {
-  const stats = [
-    { name: 'Total Products', value: '24', icon: Package, color: 'text-blue-600', bg: 'bg-blue-100' },
-    { name: 'Categories', value: '6', icon: Grid3X3, color: 'text-green-600', bg: 'bg-green-100' },
-    { name: 'Brands', value: '8', icon: Award, color: 'text-purple-600', bg: 'bg-purple-100' },
-    { name: 'Blog Posts', value: '12', icon: FileText, color: 'text-orange-600', bg: 'bg-orange-100' },
-  ];
+    const [stats, setStats] = React.useState(null);
+
+const statCards = stats
+  ? [
+      { name: 'Total Products', value: stats.totalProducts, icon: Package, color: 'text-blue-600', bg: 'bg-blue-100' },
+      { name: 'Categories', value: stats.totalCategories, icon: Grid3X3, color: 'text-green-600', bg: 'bg-green-100' },
+      { name: 'Brands', value: stats.totalBrands, icon: Award, color: 'text-purple-600', bg: 'bg-purple-100' },
+      { name: 'Blog Posts', value: stats.totalBlogPosts, icon: FileText, color: 'text-orange-600', bg: 'bg-orange-100' },
+      { name: 'Featured Products', value: stats.totalFeaturedProducts, icon: TrendingUp, color: 'text-pink-600', bg: 'bg-pink-100' },
+    ]
+  : [];
 
   const quickActions = [
     { name: 'Add Product', href: '/admin/products', icon: Package, color: 'btn-primary' },
@@ -17,6 +23,23 @@ const Dashboard = () => {
     { name: 'Add Brand', href: '/admin/brands', icon: Award, color: 'btn-accent' },
     { name: 'Add Blog Post', href: '/admin/blogs', icon: FileText, color: 'btn-info' },
   ];
+
+
+
+
+const getdashboardSummary = async () => {
+  try {
+    const res = await api.get("/products/dashboard/stats");
+    setStats(res.data); // 👈 save stats to state
+  } catch (error) {
+    console.log("Error fetching dashboard stats:", error);
+  }
+};
+
+
+  useEffect(()=>{
+    getdashboardSummary();
+  },[])
 
   return (
     <div className="space-y-6">
@@ -33,30 +56,31 @@ const Dashboard = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, index) => {
-          const Icon = stat.icon;
-          return (
-            <motion.div
-              key={stat.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
-            >
-              <div className="flex items-center">
-                <div className={`p-3 rounded-lg ${stat.bg}`}>
-                  <Icon className={`w-6 h-6 ${stat.color}`} />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">{stat.name}</p>
-                  <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                </div>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+  {statCards.map((stat, index) => {
+    const Icon = stat.icon;
+    return (
+      <motion.div
+        key={stat.name}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.1 }}
+        className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+      >
+        <div className="flex items-center">
+          <div className={`p-3 rounded-lg ${stat.bg}`}>
+            <Icon className={`w-6 h-6 ${stat.color}`} />
+          </div>
+          <div className="ml-4">
+            <p className="text-sm font-medium text-gray-600">{stat.name}</p>
+            <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+          </div>
+        </div>
+      </motion.div>
+    );
+  })}
+</div>
+
 
       {/* Quick Actions */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">

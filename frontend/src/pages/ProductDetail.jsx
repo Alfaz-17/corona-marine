@@ -12,37 +12,45 @@ const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch product details from API
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        setLoading(true);
-        const { data } = await api.get(`/products/${id}`);
-        setProduct(data);
-      
+useEffect(() => {
+  const fetchProduct = async () => {
+    try {
+      setLoading(true);
 
+      // ✅ fetch single product
+      const { data } = await api.get(`/products/${id}`);
+      setProduct(data);
 
-        // Fetch related products
-        const relatedRes = await api.get(`/products?category=${data.category}`);
-      
-        const related = relatedRes.data.filter(p => p._id !== data._id).slice(0, 3);
-       console.log(related)
+      // ✅ fetch related products by category name
+      if (data?.category?.name) {
+        const relatedRes = await api.get(
+          `/products?category=${encodeURIComponent(data.category.name)}`
+        );
+
+        const related = relatedRes.data
+          .filter((p) => p._id !== data._id) // exclude current product
+          .slice(0, 3); // limit to 3
+
         setRelatedProducts(related);
-        
-      } catch (err) {
-        console.error("Error fetching product:", err);
-        setProduct(null);
-      } finally {
-        setLoading(false);
+      } else {
+        setRelatedProducts([]); // no category → no related
       }
-    };
+    } catch (err) {
+      console.error("Error fetching product:", err);
+      setProduct(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchProduct();
-  }, [id]);
+  fetchProduct();
+}, [id]);
+
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-xl">Loading...</p>
+        <p className="font-sans text-xl">Loading...</p>
       </div>
     );
   }
@@ -83,16 +91,16 @@ const [relatedProducts, setRelatedProducts] = useState([]);
 
               {/* Product Details */}
               <div>
-                <h1 className="text-4xl font-bold text-slate-800 mb-4">
+                <h1 className="font-headingtext-4xl font-bold text-slate-800 mb-4">
                   {product.title}
                 </h1>
                 
                 <div className="flex items-center gap-4 mb-6">
-                  <span className="badge badge-primary badge-lg">{product.category.name}</span>
+                  <span className="font-sans badge badge-primary badge-lg">{product.category.name}</span>
                 </div>
 
                 <div className="prose max-w-none mb-8">
-                  <p className="text-lg text-gray-600">
+                  <p className="font-sans text-lg text-gray-600">
                     {product.description}
                   </p>
                 </div>
@@ -133,7 +141,7 @@ const [relatedProducts, setRelatedProducts] = useState([]);
 {relatedProducts.length > 0 && (
   <section className="py-20 bg-base-200">
     <div className="container mx-auto px-4">
-      <h2 className="text-3xl font-bold text-marine-navy mb-12 text-center">
+      <h2 className="font-heading text-3xl font-bold text-marine-navy mb-12 text-center">
         Related Products
       </h2>
 
@@ -155,12 +163,12 @@ const [relatedProducts, setRelatedProducts] = useState([]);
               />
             </figure>
             <div className="card-body">
-              <h3 className="card-title text-slate-800">
+              <h3 className="font-heading card-title text-slate-800">
                 {relatedProduct.title}
               </h3>
-              <p className="text-gray-600">{relatedProduct.description}</p>
+              <p className="font-sanstext-gray-600">{relatedProduct.description}</p>
               <div className="flex justify-between items-center mt-4">
-                <span className="badge badge-primary">
+                <span className="font-sans badge badge-primary">
                   {relatedProduct.category?.name}
                 </span>
               </div>

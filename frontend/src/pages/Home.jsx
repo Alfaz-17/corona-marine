@@ -68,11 +68,11 @@ const Home = () => {
   <section
   className="hero min-h-screen relative"
   style={{
-    backgroundImage: "url('/assets/home.png')",
+    backgroundImage: "url('/assets/marine.png')",
   }}
 >
   {/* Dark navy overlay for contrast */}
-  <div className="hero-overlay bg-neutral-navy opacity-50"></div>
+  <div className="hero-overlay bg-neutral-navy opacity-70"></div>
 
   <div className="hero-content text-center text-neutral-white">
     <motion.div
@@ -81,12 +81,12 @@ const Home = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
     >
-      <h1 className="mb-5 text-5xl lg:text-7xl font-bold leading-tight">
+      <h1 className="font-heading mb-5 text-5xl lg:text-7xl font-bold leading-tight">
         Your Trusted{" "}
-        <span className="text-marine-aqua">Marine Services</span> Partner
+        <span className="font-sans text-marine-aqua">Marine Services</span> Partner
       </h1>
 
-      <p className="mb-8 text-xl lg:text-2xl text-neutral-graylight">
+      <p className="font-sans mb-8 text-xl lg:text-2xl ">
         Providing premium marine equipment and exceptional service to the
         maritime industry for over 35 years
       </p>
@@ -130,12 +130,12 @@ const Home = () => {
           <stat.icon className="w-12 h-12 text-marine-aqua mx-auto mb-4" />
 
           {/* Number in Marine Navy for strength */}
-          <h3 className="text-3xl font-bold text-marine-navy mb-2">
+          <h3 classname="font-bold font-headingtext-3xl font-heading  text-marine-navy mb-2">
             {stat.value}
           </h3>
 
           {/* Label in Gray Cool for readability */}
-          <p className="text-neutral-graycool">{stat.label}</p>
+          <p className="font-sans text-neutral-graycool">{stat.label}</p>
         </motion.div>
       ))}
     </div>
@@ -153,7 +153,7 @@ const Home = () => {
         viewport={{ once: true }}
       >
         {/* Title in Marine Navy */}
-        <h2 className="text-4xl font-bold text-marine-navy mb-6">
+        <h2 className=" font-heading text-4xl font-bold text-marine-navy mb-6">
           Leading Marine Services Provider
         </h2>
 
@@ -200,7 +200,7 @@ const Home = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold text-marine-navy mb-4">
+          <h2 className="font-heading  text-4xl font-bold text-marine-navy mb-4">
             Product Categories
           </h2>
           <p className="text-xl text-neutral-graycool">
@@ -234,14 +234,14 @@ const Home = () => {
           />
         )}
 
-        <h3 className="card-title justify-center text-marine-navy">
+        <h3 className="font-bold font-heading card-title justify-center text-marine-navy">
           {category.name}
         </h3>
         <p className="text-neutral-graycool">{category.description}</p>
 
         <div className="card-actions justify-center mt-4">
           <Link
-            to={`/products?category=${category._id}`}
+            to={`/products?category=${category.name}`}
             className="btn bg-marine-blue hover:bg-marine-navy text-white border-none btn-sm"
           >
             View More
@@ -267,7 +267,7 @@ const Home = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold text-marine-navy mb-4">
+          <h2 className="font-heading text-4xl font-bold text-marine-navy mb-4">
             Featured Products
           </h2>
           <p className="text-xl text-neutral-graycool">
@@ -294,11 +294,11 @@ const Home = () => {
                 </figure>
 
                 <div className="card-body">
-                  <h3 className="card-title text-marine-navy">{product.title}</h3>
+                  <h3 className="font-bold font-heading card-title text-marine-navy">{product.title}</h3>
                   <p className="text-neutral-graycool">{product.description}</p>
 
                   <div className="flex justify-between items-center mt-4">
-                    <span className="badge bg-marine-aqua text-marine-navy border-none">
+                    <span className="font-sans badge bg-marine-aqua text-marine-navy border-none">
                       {product.category?.name || "General"}
                     </span>
                     <span className="text-lg font-bold text-marine-blue">
@@ -340,7 +340,7 @@ const Home = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
-      <h2 className="text-4xl font-bold text-marine-navy mb-4">
+      <h2 className="font-heading text-4xl font-bold text-marine-navy mb-4">
         Trusted Brands
       </h2>
       <p className="text-xl text-neutral-graycool">
@@ -396,10 +396,10 @@ const Home = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold text-marine-navy mb-4">
+          <h2 className="font-heading text-4xl font-bold text-marine-navy mb-4">
             Latest News & Insights
           </h2>
-          <p className="text-xl text-neutral-graycool">
+          <p className="font-sans text-xl text-neutral-graycool">
             Stay updated with marine industry trends and tips
           </p>
         </motion.div>
@@ -423,11 +423,11 @@ const Home = () => {
                   />
                 </figure>
                 <div className="card-body">
-                  <h3 className="card-title text-marine-navy">{blog.title}</h3>
-                  <p className="text-neutral-graycool">{blog.excerpt}</p>
+                  <h3 className="font-bold font-heading card-title text-marine-navy">{blog.title}</h3>
+                  <p className="font-sans text-neutral-graycool">{blog.excerpt}</p>
 
                   <div className="flex justify-between items-center mt-4">
-                    <span className="text-sm text-neutral-graycool">
+                    <span className="font-sans text-sm text-neutral-graycool">
                       {new Date(blog.date).toLocaleDateString()}
                     </span>
                     <Link

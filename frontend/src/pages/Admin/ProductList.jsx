@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Plus, Edit, Trash2, Search, Eye } from 'lucide-react';
+import api from '../../utils/api';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -14,89 +15,29 @@ const ProductList = () => {
   const categories = ['Engines', 'Electronics', 'Safety Equipment', 'Propulsion', 'Anchoring', 'Deck Equipment'];
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  useEffect(() => {
     filterProducts();
   }, [products, searchTerm, selectedCategory]);
 
   const fetchProducts = async () => {
     try {
-      setIsLoading(true);
-      const response = await fetch('/admin/products', {
-        credentials: 'include',
-      });
+      const response =await api.get("/products");
+      console.log(response.data,"product data");
 
-      if (response.ok) {
-        const data = await response.json();
-        setProducts(data);
-      } else {
-        // Demo mode - use static data
-        const demoProducts = [
-          {
-            id: 1,
-            title: "Marine Diesel Engine 500HP",
-            description: "High-performance marine diesel engine suitable for commercial vessels",
-            category: "Engines",
-            brand: "Caterpillar",
-            image: "https://images.pexels.com/photos/8986070/pexels-photo-8986070.jpeg",
-            price: 45000,
-            featured: true
-          },
-          {
-            id: 2,
-            title: "Ship Navigation Radar System",
-            description: "Advanced navigation radar system for marine vessels",
-            category: "Electronics",
-            brand: "Furuno",
-            image: "https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg",
-            price: 12500,
-            featured: true
-          },
-          {
-            id: 3,
-            title: "Marine Safety Life Jackets",
-            description: "Professional grade life jackets for marine safety",
-            category: "Safety Equipment",
-            brand: "Mustang Survival",
-            image: "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg",
-            price: 85,
-            featured: false
-          }
-        ];
-        setProducts(demoProducts);
-      }
-    } catch (error) {
-      console.log('Backend server not available - using demo data');
-      // Demo data fallback
-      const demoProducts = [
-        {
-          id: 1,
-          title: "Marine Diesel Engine 500HP",
-          description: "High-performance marine diesel engine suitable for commercial vessels",
-          category: "Engines",
-          brand: "Caterpillar",
-          image: "https://images.pexels.com/photos/8986070/pexels-photo-8986070.jpeg",
-          price: 45000,
-          featured: true
-        },
-        {
-          id: 2,
-          title: "Ship Navigation Radar System",
-          description: "Advanced navigation radar system for marine vessels",
-          category: "Electronics",
-          brand: "Furuno",
-          image: "https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg",
-          price: 12500,
-          featured: true
-        }
-      ];
-      setProducts(demoProducts);
-    } finally {
+setProducts(response.data)
+      
+    
+    } catch{
+      console.log("object")
+    }
+    
+    finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(()=>{
+fetchProducts();
+  },[])
 
   const filterProducts = () => {
     let filtered = products;
@@ -122,27 +63,20 @@ const ProductList = () => {
     }
 
     try {
-      const response = await fetch(`/admin/products/${productId}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
-
-      if (response.ok) {
+      const response = await api.delete(`/products/${productId}`);
+      if (response.status === 200) {
         setProducts(products.filter(p => p.id !== productId));
         setMessage({ type: 'success', text: 'Product deleted successfully!' });
+        fetchProducts();
       } else {
-        // Demo mode - simulate deletion
-        setProducts(products.filter(p => p.id !== productId));
-        setMessage({ type: 'success', text: 'Product deleted successfully! (Demo mode)' });
+        setMessage({ type: 'error', text: 'Failed to delete product.' });
       }
     } catch (error) {
-      console.log('Backend server not available - demo deletion');
-      setProducts(products.filter(p => p.id !== productId));
-      setMessage({ type: 'success', text: 'Product deleted successfully! (Demo mode)' });
+      console.log('Error deleting product:', error);
+      setMessage({ type: 'error', text: 'Failed to delete product.' });
     }
 
-    // Clear message after 3 seconds
-    setTimeout(() => setMessage({ type: '', text: '' }), 3000);
+    
   };
 
   const toggleFeatured = async (productId) => {
@@ -264,7 +198,7 @@ const ProductList = () => {
                 <th>Product</th>
                 <th>Category</th>
                 <th>Brand</th>
-                <th>Price</th>
+                
                 <th>Featured</th>
                 <th>Actions</th>
               </tr>
@@ -272,7 +206,7 @@ const ProductList = () => {
             <tbody>
               {filteredProducts.map((product, index) => (
                 <motion.tr
-                  key={product.id}
+                  key={product._id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
@@ -292,13 +226,13 @@ const ProductList = () => {
                       </div>
                     </div>
                   </td>
-                  <td>
-                    <span className="badge badge-primary badge-sm">
-                      {product.category}
-                    </span>
-                  </td>
+                 <td>
+  <span className="badge badge-primary badge-lg">
+    {product.category?.name}
+  </span>
+</td>
+
                   <td>{product.brand}</td>
-                  <td className="font-semibold">${product.price.toLocaleString()}</td>
                   <td>
                     <input
                       type="checkbox"
@@ -310,21 +244,21 @@ const ProductList = () => {
                   <td>
                     <div className="flex items-center space-x-2">
                       <Link
-                        to={`/product/${product.id}`}
+                        to={`/product/${product._id}`}
                         className="btn btn-ghost btn-sm"
                         title="View Product"
                       >
                         <Eye className="w-4 h-4" />
                       </Link>
                       <Link
-                        to={`/admin/products/edit/${product.id}`}
+                        to={`/admin/products/edit/${product._id}`}
                         className="btn btn-ghost btn-sm"
                         title="Edit Product"
                       >
                         <Edit className="w-4 h-4" />
                       </Link>
                       <button
-                        onClick={() => handleDelete(product.id)}
+                        onClick={() => handleDelete(product._id)}
                         className="btn btn-ghost btn-sm text-red-600 hover:bg-red-50"
                         title="Delete Product"
                       >

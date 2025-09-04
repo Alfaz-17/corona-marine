@@ -34,10 +34,10 @@ const Header = ({ darkMode, toggleDarkMode }) => {
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center btn btn-ghost normal-case text-xl text-neutral-white"
+            className="flex font-heading items-center btn btn-ghost normal-case text-xl text-neutral-white"
           >
             <Anchor className="w-7 h-7 text-marine-aqua mr-2 animate-pulse" />
-            <span className="font-extrabold tracking-wide text-lg">Corona Marine</span>
+            <span className=" font-heading font-extrabold tracking-wide text-lg">Corona Marine</span>
           </Link>
         </div>
 
@@ -47,7 +47,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
             <Link
               key={item.name}
               to={item.path}
-              className={`px-3 py-2 rounded-md font-medium transition-all ${
+              className={`px-3 py-2 font-heading rounded-md font-medium transition-all ${
                 isActive(item.path)
                   ? "bg-marine-aqua text-marine-navy shadow"
                   : "hover:bg-marine-blue"
@@ -59,13 +59,8 @@ const Header = ({ darkMode, toggleDarkMode }) => {
         </nav>
 
         <div className="navbar-end flex items-center gap-3">
-          {/* Dark Mode Toggle */}
-          <button
-            onClick={toggleDarkMode}
-            className="btn btn-ghost btn-circle text-neutral-white hover:bg-marine-blue transition"
-          >
-            {darkMode ? "🌙" : "☀️"}
-          </button>
+          
+    
 
           {/* Call Button */}
           <a
@@ -88,7 +83,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
         {/* Logo (Sidebar version) */}
         <div className="flex items-center gap-2 px-6 py-5 border-b border-marine-blue">
           <Anchor className="w-7 h-7 text-marine-aqua animate-pulse" />
-          <span className="font-extrabold tracking-wide text-lg">Corona Marine</span>
+          <span className="font-heading tracking-wide text-lg">Corona Marine</span>
         </div>
 
         {/* Navigation */}
@@ -99,7 +94,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
                 <Link
                   to={item.path}
                   onClick={() => setIsSidebarOpen(false)}
-                  className={`block px-4 py-2 rounded-lg transition-all ${
+                  className={`block px-4 font-heading py-2 rounded-lg transition-all ${
                     isActive(item.path)
                       ? "bg-marine-aqua text-marine-navy font-semibold shadow"
                       : "hover:bg-marine-blue"
@@ -114,12 +109,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
 
         {/* Sidebar Footer */}
         <div className="px-6 py-4 border-t border-marine-blue flex flex-col gap-3">
-          <button
-            onClick={toggleDarkMode}
-            className="w-full py-2 rounded-lg bg-marine-blue hover:bg-marine-aqua hover:text-marine-navy transition"
-          >
-            {darkMode ? "🌙 Dark Mode" : "☀️ Light Mode"}
-          </button>
+       
 
           <a
             href="tel:+1234567890"

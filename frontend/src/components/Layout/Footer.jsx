@@ -12,9 +12,9 @@ const Footer = () => {
       <div>
         <div className="flex items-center mb-4">
           <Anchor className="w-6 h-6 text-marine-aqua mr-2" />
-          <span className="text-xl font-bold">MarineServ</span>
+          <span className="font-sans text-xl font-bold">MarineServ</span>
         </div>
-        <p className="text-neutral-graylight mb-4">
+        <p className="font-sans text-neutral-graylight mb-4">
           Your trusted partner for marine services and equipment. Serving the maritime industry with excellence since 1985.
         </p>
         <div className="flex space-x-4">
@@ -35,7 +35,7 @@ const Footer = () => {
 
       {/* Quick Links */}
       <div>
-        <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+        <h3 className="font-heading text-lg font-semibold mb-4">Quick Links</h3>
         <ul className="space-y-2">
           <li><Link to="/about" className="text-neutral-graylight hover:text-marine-aqua transition-colors">About Us</Link></li>
           <li><Link to="/products" className="text-neutral-graylight hover:text-marine-aqua transition-colors">Products</Link></li>
@@ -47,7 +47,7 @@ const Footer = () => {
 
       {/* Services */}
       <div>
-        <h3 className="text-lg font-semibold mb-4">Services</h3>
+        <h3 className="font-heading text-lg font-semibold mb-4">Services</h3>
         <ul className="space-y-2 text-neutral-graylight">
           <li>Marine Equipment Supply</li>
           <li>Technical Support</li>
@@ -59,26 +59,26 @@ const Footer = () => {
 
       {/* Contact Info */}
       <div>
-        <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
+        <h3 className="font-heading text-lg font-semibold mb-4">Contact Info</h3>
         <div className="space-y-3">
           <div className="flex items-start">
             <MapPin className="w-5 h-5 text-marine-aqua mt-1 mr-3 flex-shrink-0" />
-            <span className="text-neutral-graylight">123 Harbor Street, Port City, PC 12345</span>
+            <span className="font-sans text-neutral-graylight">123 Harbor Street, Port City, PC 12345</span>
           </div>
           <div className="flex items-center">
             <Phone className="w-5 h-5 text-marine-aqua mr-3" />
-            <span className="text-neutral-graylight">+1 (555) 123-4567</span>
+            <span className="font-sans text-neutral-graylight">+1 (555) 123-4567</span>
           </div>
           <div className="flex items-center">
             <Mail className="w-5 h-5 text-marine-aqua mr-3" />
-            <span className="text-neutral-graylight">info@marineserv.com</span>
+            <span className="font-sans text-neutral-graylight">info@marineserv.com</span>
           </div>
         </div>
       </div>
     </div>
 
     <div className="border-t border-marine-navy mt-8 pt-8 text-center">
-      <p className="text-neutral-graycool">
+      <p className="font-sans text-neutral-graycool">
         © 2024 MarineServ. All rights reserved. | Privacy Policy | Terms of Service
       </p>
     </div>

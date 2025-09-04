@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Plus, Edit, Trash2, Search, Grid3X3 } from 'lucide-react';
+import api from '../../utils/api';
 
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
 
   useEffect(() => {
@@ -19,38 +20,13 @@ const CategoryList = () => {
   }, [categories, searchTerm]);
 
   const fetchCategories = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch('/admin/categories', {
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setCategories(data);
-      } else {
-        // Demo mode - use static data
-        const demoCategories = [
-          { id: 1, name: "Engines", description: "Marine diesel engines and power systems", icon: "⚙️" },
-          { id: 2, name: "Electronics", description: "Navigation, communication and electronic systems", icon: "📡" },
-          { id: 3, name: "Safety Equipment", description: "Marine safety and emergency equipment", icon: "🦺" },
-          { id: 4, name: "Propulsion", description: "Propellers, shafts and propulsion systems", icon: "🚁" },
-          { id: 5, name: "Anchoring", description: "Anchors, chains and mooring equipment", icon: "⚓" },
-          { id: 6, name: "Deck Equipment", description: "Deck hardware and marine accessories", icon: "🔧" }
-        ];
-        setCategories(demoCategories);
-      }
-    } catch (error) {
-      console.log('Backend server not available - using demo data');
-      const demoCategories = [
-        { id: 1, name: "Engines", description: "Marine diesel engines and power systems", icon: "⚙️" },
-        { id: 2, name: "Electronics", description: "Navigation, communication and electronic systems", icon: "📡" },
-        { id: 3, name: "Safety Equipment", description: "Marine safety and emergency equipment", icon: "🦺" }
-      ];
-      setCategories(demoCategories);
-    } finally {
-      setIsLoading(false);
-    }
+ try {
+  const res =await api.get("/categories");
+  console.log(res.data);
+  setCategories(res.data);
+ } catch (error) {
+  console.log("error")
+ }
   };
 
   const filterCategories = () => {
@@ -66,32 +42,26 @@ const CategoryList = () => {
     setFilteredCategories(filtered);
   };
 
-  const handleDelete = async (categoryId) => {
-    if (!window.confirm('Are you sure you want to delete this category?')) {
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this product?')) {
       return;
     }
 
     try {
-      const response = await fetch(`/admin/categories/${categoryId}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        setCategories(categories.filter(c => c.id !== categoryId));
+      const response = await api.delete(`/categories/${id}`);
+      if (response.status === 200) {
+        setCategories(categories.filter(c => c.id !== id));
         setMessage({ type: 'success', text: 'Category deleted successfully!' });
+        fetchCategories();
       } else {
-        // Demo mode - simulate deletion
-        setCategories(categories.filter(c => c.id !== categoryId));
-        setMessage({ type: 'success', text: 'Category deleted successfully! (Demo mode)' });
+        setMessage({ type: 'error', text: 'Failed to delete category.' });
       }
     } catch (error) {
-      console.log('Backend server not available - demo deletion');
-      setCategories(categories.filter(c => c.id !== categoryId));
-      setMessage({ type: 'success', text: 'Category deleted successfully! (Demo mode)' });
+      console.log('Error deleting category:', error);
+      setMessage({ type: 'error', text: 'Failed to delete category.' });
     }
 
-    setTimeout(() => setMessage({ type: '', text: '' }), 3000);
+    
   };
 
   if (isLoading) {
@@ -175,7 +145,7 @@ const CategoryList = () => {
                     <Edit className="w-4 h-4" />
                   </Link>
                   <button
-                    onClick={() => handleDelete(category.id)}
+                    onClick={() => handleDelete(category._id)}
                     className="btn btn-ghost btn-sm text-red-600 hover:bg-red-50"
                     title="Delete Category"
                   >

@@ -51,10 +51,10 @@ const Blog = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <h1 className="mb-5 text-5xl font-bold text-cyan-200">
+      <h1 className="font-heading mb-5 text-5xl font-bold  drop-shadow-lg">
               Marine Industry Blog
             </h1>
-            <p className="mb-5 text-xl text-cyan-100">
+            <p className="mb-5 text-xl text-marine-aqua">
               Latest news, insights, and tips from the maritime world
             </p>
           </motion.div>
@@ -103,7 +103,7 @@ const Blog = () => {
       className="w-full h-96 object-cover"
     />
     <div className="p-6 bg-white">
-      <h2 className="text-3xl font-bold text-navy-800 mb-3">
+      <h2 className="font-heading text-3xl font-bold text-navy-800 mb-3">
         <Link to={`/blog/${filteredBlogs[0]._id}`} className="hover:text-cyan-600">
           {filteredBlogs[0].title}
         </Link>
@@ -131,7 +131,7 @@ const Blog = () => {
     >
       <img src={blog.image} alt={blog.title} className="w-full object-cover" />
       <div className="p-4">
-        <h2 className="text-xl font-semibold text-navy-800 hover:text-cyan-600">
+        <h2 classname="font-headingtext-xl font-semibold text-navy-800 hover:text-cyan-600">
           <Link to={`/blog/${blog._id}`}>{blog.title}</Link>
         </h2>
         <p className="text-cyan-700 text-sm mt-2">{blog.excerpt}</p>

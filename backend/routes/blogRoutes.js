@@ -6,8 +6,8 @@ import { authMiddleware } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 
-router.get("/",authMiddleware,getAllBlogPosts);
+router.get("/",getAllBlogPosts);
 router.post("/",authMiddleware,createBlogPost);
-router.get("/:id",authMiddleware,getOneBlogPost);
+router.get("/:id",getOneBlogPost);
 
 export default router;

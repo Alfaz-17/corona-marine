@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useSearchParams} from "react-router-dom";
 import { motion } from "framer-motion";
 import { Search, Filter } from "lucide-react";
 import api from "../utils/api";
@@ -9,6 +9,14 @@ const Products = () => {
   const [categories, setCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+
+
+  //navigate to home page for categories
+const [searchParams] = useSearchParams();
+const categoryFromUrl = searchParams.get("category");
+useEffect(() => {
+  if (categoryFromUrl) setSelectedCategory(categoryFromUrl);
+}, [categoryFromUrl]);
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -70,10 +78,10 @@ const Products = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <h1 className="mb-5 text-5xl font-bold tracking-wide text-marine-light">
+            <h1 className="font-heading mb-5 text-5xl font-bold tracking-wide text-marine-light">
               Marine Products
             </h1>
-            <p className="mb-5 text-xl text-marine-aqua">
+            <p className="font-sans mb-5 text-xl text-marine-aqua">
               Professional-grade marine equipment and supplies
             </p>
             <div className="flex justify-center gap-4 mt-6">
@@ -107,7 +115,7 @@ const Products = () => {
         {/* Search */}
         <div className="flex-1">
           <label className="label">
-            <span className="label-text font-semibold text-marine-navy">
+            <span className="font-sans label-text font-semibold text-marine-navy">
               Search Products
             </span>
           </label>
@@ -129,7 +137,7 @@ const Products = () => {
         {/* Category */}
         <div className="w-full md:w-64">
           <label className="label">
-            <span className="label-text font-semibold text-marine-navy">
+            <span className="font-sans label-text font-semibold text-marine-navy">
               Category
             </span>
           </label>
@@ -169,7 +177,7 @@ const Products = () => {
     {/* Product Grid */}
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-marine-navy">
+        <h2 className="font-heading text-2xl font-bold text-marine-navy">
           Products ({filteredProducts.length})
         </h2>
       </div>
@@ -191,11 +199,11 @@ const Products = () => {
               />
             </figure>
             <div className="card-body p-3">
-              <h3 className="text-md font-semibold text-marine-navy truncate">
+              <h3 className="font-heading text-md font-semibold text-marine-navy truncate">
                 {product.title}
               </h3>
               <div className="flex justify-between items-center mt-2">
-                <span className="badge bg-marine-aqua text-white border-none badge-sm">
+                <span className="font-sans badge bg-marine-aqua text-white border-none badge-sm">
                   {product.category?.name || "Uncategorized"}
                 </span>
                 <Link
@@ -212,7 +220,7 @@ const Products = () => {
 
       {filteredProducts.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-xl text-gray-500">
+          <p className="font-sanstext-xl text-gray-500">
             No products found matching your criteria.
           </p>
         </div>

@@ -6,7 +6,7 @@ import { authMiddleware } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 
-router.get("/",authMiddleware,getAllBrands);
+router.get("/",getAllBrands);
 router.post("/",authMiddleware,createBrand);
 
 

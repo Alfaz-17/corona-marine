@@ -48,10 +48,10 @@ const About = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
     >
-      <h1 className="mb-5 text-5xl font-bold text-marine-sky">
+      <h1 className="font-heading mb-5 text-5xl font-bold text-marine-sky">
         About MarineServ
       </h1>
-      <p className="mb-5 text-xl text-neutral-graylight">
+      <p classname="font-sans  mb-5 text-xl text-neutral-graylight">
         Your trusted partner in marine services since 1985
       </p>
     </motion.div>
@@ -68,23 +68,23 @@ const About = () => {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-4xl font-bold text-marine-navy mb-6">
+        <h2 className="font-heading text-4xl font-bold text-marine-navy mb-6">
           Our Story
         </h2>
-        <p className="text-lg text-marine-blue mb-6">
+        <p classname="font-sans text-lg text-marine-blue mb-6">
           Founded in 1985, MarineServ has grown from a small maritime parts
           supplier to become one of the most trusted names in marine services.
           Our journey began with a simple mission: to provide reliable,
           high-quality marine equipment and exceptional service to the maritime
           industry.
         </p>
-        <p className="text-lg text-marine-blue mb-6">
+        <p classname="font-sans text-lg text-marine-blue mb-6">
           Over the decades, we have built strong relationships with leading
           manufacturers and suppliers worldwide, enabling us to offer
           comprehensive solutions for all types of marine vessels and offshore
           installations.
         </p>
-        <p className="text-lg text-marine-blue mb-8">
+        <p classname="font-sans text-lg text-marine-blue mb-8">
           Today, we serve customers across six continents, maintaining the same
           commitment to quality and customer satisfaction that has been our
           foundation since day one.
@@ -126,9 +126,9 @@ const About = () => {
         >
           <div className="flex items-center mb-6">
             <Target className="w-8 h-8 text-marine-aqua mr-3" />
-            <h2 className="text-3xl font-bold text-marine-navy">Our Mission</h2>
+            <h2 className="font-heading text-3xl font-bold text-marine-navy">Our Mission</h2>
           </div>
-          <p className="text-lg text-marine-blue">
+          <p classname="font-sans text-lg text-marine-blue">
             To be the leading provider of marine equipment and services,
             delivering innovative solutions that enhance maritime operations
             while ensuring safety, reliability, and environmental
@@ -144,9 +144,9 @@ const About = () => {
         >
           <div className="flex items-center mb-6">
             <Heart className="w-8 h-8 text-marine-seafoam mr-3" />
-            <h2 className="text-3xl font-bold text-marine-navy">Our Vision</h2>
+            <h2 className="font-heading text-3xl font-bold text-marine-navy">Our Vision</h2>
           </div>
-          <p className="text-lg text-marine-blue">
+          <p classname="font-sans text-lg text-marine-blue">
             To create a safer, more efficient maritime world by providing
             cutting-edge marine solutions and fostering long-term partnerships
             with our clients across the global maritime industry.
@@ -160,7 +160,7 @@ const About = () => {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-3xl font-bold text-marine-navy mb-8">Our Values</h2>
+        <h2 className="font-headingtext-3xl font-bold text-marine-navy mb-8">Our Values</h2>
         <div className="space-y-6">
           {values.map((value, index) => (
             <motion.div
@@ -173,10 +173,10 @@ const About = () => {
             >
               <value.icon className="w-6 h-6 text-marine-aqua mr-4 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="text-xl font-semibold text-marine-navy mb-2">
+                <h3 className="font-heading text-xl font-semibold text-marine-navy mb-2">
                   {value.title}
                 </h3>
-                <p className="text-marine-blue">{value.description}</p>
+                <p classname="font-sans text-marine-blue">{value.description}</p>
               </div>
             </motion.div>
           ))}
@@ -197,10 +197,10 @@ const About = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
-      <h2 className="text-4xl font-bold text-marine-navy mb-4">
+      <h2 className="font-heading text-4xl font-bold text-marine-navy mb-4">
         Our Expert Team
       </h2>
-      <p className="text-xl text-marine-blue">
+      <p classname="font-sans text-xl text-marine-blue">
         Experienced professionals dedicated to your success
       </p>
     </motion.div>
@@ -249,10 +249,10 @@ const About = () => {
             />
           </figure>
           <div className="card-body text-center">
-            <h3 className="card-title justify-center text-marine-navy text-lg font-bold">
+            <h3 className="font-heading card-title justify-center text-marine-navy text-lg font-bold">
               {member.name}
             </h3>
-            <p className="text-marine-aqua font-medium">{member.role}</p>
+            <p classname="font-sans text-marine-aqua font-medium">{member.role}</p>
           </div>
         </motion.div>
       ))}

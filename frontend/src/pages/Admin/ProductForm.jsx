@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Save, Upload, X } from 'lucide-react';
 import { uploadToCloudinary } from '../../utils/cloudinary';
 import api from '../../utils/api';
+import { addWatermark } from '../../components/Common/addWatermark ';
 
 const ProductForm = () => {
   const [formData, setFormData] = useState({
@@ -65,57 +66,56 @@ const ProductForm = () => {
     setFormData(prev => ({ ...prev, image: '' }));
   };
 
+
 const handleSubmit = async (e) => {
   e.preventDefault();
   setIsLoading(true);
-  setMessage({ type: '', text: '' });
+  setMessage({ type: "", text: "" });
 
   try {
     let imageUrl = formData.image;
 
-    // Upload image to Cloudinary if a new file is selected
     if (imageFile) {
       setIsUploading(true);
-      imageUrl = await uploadToCloudinary(imageFile);
+
+      // ✅ Apply watermark before upload
+      const watermarkedFile = await addWatermark(imageFile, "CoronaMarine"); // Change text/logo name
+      imageUrl = await uploadToCloudinary(watermarkedFile);
+
       setIsUploading(false);
     }
 
-    // Submit product data to API (send imageUrl inside body)
-    const response = await api.post('/products', {
+    const response = await api.post("/products", {
       ...formData,
-      image: imageUrl
+      image: imageUrl,
     });
 
-    // Axios puts response data in `response.data`
-    setMessage({ type: 'success', text: 'Product created successfully!' });
+    setMessage({ type: "success", text: "Product created successfully!" });
 
-    // Reset form
     setFormData({
-      title: '',
-      description: '',
-      price: '',
-      category: '',
-      brand: '',
-      image: '',
-      featured: false
+      title: "",
+      description: "",
+      price: "",
+      category: "",
+      brand: "",
+      image: "",
+      featured: false,
     });
     setImageFile(null);
-    setImagePreview('');
-    
+    setImagePreview("");
   } catch (error) {
-    console.error('Error creating product:', error);
-
-    // If backend sends an error response, it's in `error.response.data`
+    console.error("Error creating product:", error);
     if (error.response?.data?.message) {
-      setMessage({ type: 'error', text: error.response.data.message });
+      setMessage({ type: "error", text: error.response.data.message });
     } else {
-      setMessage({ type: 'error', text: 'Network error occurred' });
+      setMessage({ type: "error", text: "Network error occurred" });
     }
   } finally {
     setIsLoading(false);
     setIsUploading(false);
   }
 };
+
 
 
   return (

@@ -42,7 +42,7 @@ const BlogDetail = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-marine-navy mb-4">
+          <h2 classname="font-heading text-2xl font-bold text-marine-navy mb-4">
             {error || "Article Not Found"}
           </h2>
           <Link to="/blog" className="btn btn-primary">
@@ -68,7 +68,7 @@ const BlogDetail = () => {
 
             {/* Article Header */}
             <header className="mb-8">
-              <h1 className="text-4xl lg:text-5xl font-bold text-slate-800 mb-6 leading-tight">
+              <h1 classname="font-heading text-4xl lg:text-5xl font-bold text-slate-800 mb-6 leading-tight">
                 {blog.title}
               </h1>
 
@@ -87,7 +87,7 @@ const BlogDetail = () => {
 
               {/* Share Buttons */}
               <div className="flex items-center gap-4 mb-8">
-                <span className="text-gray-600 flex items-center gap-2">
+                <span classname="font-sans  text-gray-600 flex items-center gap-2">
                   <Share2 className="w-5 h-5" />
                   Share:
                 </span>
@@ -137,7 +137,7 @@ const BlogDetail = () => {
 
             {/* Article Content */}
             <div className="prose prose-lg max-w-none">
-              <p className="text-xl text-gray-600 mb-6 font-medium">{blog.excerpt}</p>
+              <p classname="font-sans text-xl text-gray-600 mb-6 font-medium">{blog.excerpt}</p>
 
               <div className="text-gray-700 leading-relaxed space-y-6">
                 {blog.content.split("\n\n").map((paragraph, index) => (
@@ -153,7 +153,7 @@ const BlogDetail = () => {
       {relatedBlogs.length > 0 && (
         <section className="py-20 bg-base-200">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-slate-800 mb-12 text-center">
+            <h2 classname="font-heading text-3xl font-bold text-slate-800 mb-12 text-center">
               Related Articles
             </h2>
 
@@ -175,10 +175,10 @@ const BlogDetail = () => {
                     />
                   </figure>
                   <div className="card-body">
-                    <h3 className="card-title text-slate-800 hover:text-blue-600 transition-colors">
+                    <h3 classname="font-heading card-title text-slate-800 hover:text-blue-600 transition-colors">
                       <Link to={`/blog/${relatedBlog._id}`}>{relatedBlog.title}</Link>
                     </h3>
-                    <p className="text-gray-600">{relatedBlog.excerpt}</p>
+                    <p classname="font-sans text-gray-600">{relatedBlog.excerpt}</p>
                     <div className="flex items-center gap-4 text-sm text-gray-500 mt-4">
                       <div className="flex items-center gap-1">
                         <Calendar className="w-4 h-4" />

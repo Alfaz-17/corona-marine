@@ -87,10 +87,10 @@ const Contact = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <h1 className="mb-5 text-5xl font-extrabold drop-shadow-lg tracking-wide">
+            <h1 className="font-heading mb-5 text-5xl font-extrabold drop-shadow-lg tracking-wide">
               Contact Us
             </h1>
-            <p className="mb-5 text-xl text-cyan-100">
+            <p className="font-sans mb-5 text-xl text-marine-aqua">
               Get in touch with our marine experts today
             </p>
             <div className="flex justify-center gap-4 mt-6">
@@ -120,10 +120,10 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-marine-navy mb-4">
+            <h2 className="font-heading text-4xl font-bold text-marine-navy mb-4">
               Get In Touch
             </h2>
-            <p className="text-xl text-cyan-700">
+            <p className="font-sans text-xl text-cyan-700">
               We're here to help with all your marine service needs
             </p>
           </motion.div>
@@ -140,12 +140,12 @@ const Contact = () => {
               >
                 <div className="card-body">
                   <info.icon className="w-12 h-12 text-teal-600 mx-auto mb-4" />
-                  <h3 className="card-title justify-center text-slate-800 mb-4">
+                  <h3 className="font-heading card-title justify-center text-slate-800 mb-4">
                     {info.title}
                   </h3>
                   <div className="space-y-2">
                     {info.details.map((detail, idx) => (
-                      <p key={idx} className="text-gray-600">
+                      <p key={idx} className="font-sanstext-gray-600">
                         {info.action && idx === 0 ? (
                           <a
                             href={info.action}
@@ -177,7 +177,7 @@ const Contact = () => {
             >
               <div className="card bg-white border  border-cyan-100 shadow-xl">
                 <div className="card-body">
-                  <h3 className="card-title text-2xl text-marine-navy mb-6">
+                  <h3 className="font-heading card-title text-2xl text-marine-navy mb-6">
                     Send Us a Message
                   </h3>
 
@@ -188,10 +188,10 @@ const Contact = () => {
                       animate={{ opacity: 1, scale: 1 }}
                     >
                       <CheckCircle className="w-16 h-16 text-teal-500 mx-auto mb-4" />
-                      <h4 className="text-xl font-semibold text-teal-600 mb-2">
+                      <h4 className="font-sans text-xl font-semibold text-teal-600 mb-2">
                         Message Sent Successfully!
                       </h4>
-                      <p className="text-gray-600">
+                      <p className="font-sans text-gray-600">
                         We'll get back to you within 24 hours.
                       </p>
                     </motion.div>
@@ -200,7 +200,7 @@ const Contact = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="form-control">
                           <label className="label">
-                            <span className="label-text font-semibold">Full Name *</span>
+                            <span className="font-sanslabel-text font-semibold">Full Name *</span>
                           </label>
                           <input
                             type="text"
@@ -214,7 +214,7 @@ const Contact = () => {
                         </div>
                         <div className="form-control">
                           <label className="label">
-                            <span className="label-text font-semibold">Email *</span>
+                            <span className="font-sans label-text font-semibold">Email *</span>
                           </label>
                           <input
                             type="email"
@@ -231,7 +231,7 @@ const Contact = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="form-control">
                           <label className="label">
-                            <span className="label-text font-semibold">Phone</span>
+                            <span className="font-sans label-text font-semibold">Phone</span>
                           </label>
                           <input
                             type="tel"
@@ -244,7 +244,7 @@ const Contact = () => {
                         </div>
                         <div className="form-control">
                           <label className="label">
-                            <span className="label-text font-semibold">Company</span>
+                            <span className="font-sans label-text font-semibold">Company</span>
                           </label>
                           <input
                             type="text"
@@ -259,7 +259,7 @@ const Contact = () => {
 
                       <div className="form-control">
                         <label className="label">
-                          <span className="label-text font-semibold">Message *</span>
+                          <span className="font-sans label-text font-semibold">Message *</span>
                         </label>
                         <textarea
                           name="message"
@@ -285,7 +285,7 @@ const Contact = () => {
                       </button>
 
                       {status === "error" && (
-                        <p className="text-red-500 text-sm text-center">
+                        <p className="font-sans text-red-500 text-sm text-center">
                           ❌ Something went wrong. Please try again later.
                         </p>
                       )}
@@ -313,10 +313,10 @@ const Contact = () => {
         {/* Emergency Contact */}
         <div className="card bg-red-50 mt-10 border border-red-200 shadow-lg">
           <div className="card-body">
-            <h3 className="card-title text-red-700 mb-4">
+            <h3 className="font-heading card-title text-red-700 mb-4">
               Emergency Marine Services
             </h3>
-            <p className="text-red-600 mb-4">
+            <p className="font-sans text-red-600 mb-4">
               Available 24/7 for urgent marine assistance and emergency repairs.
             </p>
             <div className="flex flex-col sm:flex-row gap-2">
@@ -345,7 +345,7 @@ const Contact = () => {
       <h2 className="text-4xl font-bold mb-4 text-teal-300">
         Ready to Get Started?
       </h2>
-      <p className="text-xl mb-8 text-slate-200">
+      <p className="font-sans text-xl mb-8 text-slate-200">
         Contact our marine experts today for a free consultation
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
