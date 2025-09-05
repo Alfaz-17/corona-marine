@@ -8,10 +8,10 @@ export const generateToken = (res,userId) => {
   });
 
   res.cookie("token", token, {
-    // httpOnly: true,
-    // secure: true,   // only https
-    // sameSite: "strict",
-    // maxAge: 24 * 60 * 60 * 1000
+    httpOnly: true,
+    secure: true,   // only https
+    sameSite: "strict",
+    maxAge: 24 * 60 * 60 * 1000
   });
   
   return token; // Don't set cookie
