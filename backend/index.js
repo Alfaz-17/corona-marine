@@ -16,7 +16,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: "*", // your frontend URL
+    origin: "https://corona-marine.vercel.app", // your frontend URL
     credentials: true, // 🔑 allow cookies
   })
 );
