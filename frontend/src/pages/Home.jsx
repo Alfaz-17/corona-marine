@@ -241,7 +241,7 @@ const Home = () => {
 
         <div className="card-actions justify-center mt-4">
           <Link
-            to={`/products?category=${category.name}`}
+            to={`/products?category=${category._id}`}
             className="btn bg-marine-blue hover:bg-marine-navy text-white border-none btn-sm"
           >
             View More

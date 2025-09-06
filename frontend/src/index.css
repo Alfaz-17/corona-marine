@@ -18,3 +18,7 @@
 
   --color-accent-orange: #FF7F50;
 }
+
+body {
+  overflow-x: hidden;
+}

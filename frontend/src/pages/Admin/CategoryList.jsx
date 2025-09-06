@@ -25,7 +25,7 @@ const CategoryList = () => {
   console.log(res.data);
   setCategories(res.data);
  } catch (error) {
-  console.log("error")
+  console.log(" error in fetch categories ")
  }
   };
 
