@@ -1,9 +1,9 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Target, Heart, Award, Users, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
+import aboutus   from "/assets/aboutus.png"
 const About = () => {
+  
   const values = [
     {
       icon: Shield,
@@ -94,7 +94,7 @@ const About = () => {
           viewport={{ once: true }}
         >
           <img
-            src="https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg"
+            src={aboutus}
             alt="Marine Automation in Action"
             className="rounded-2xl shadow-2xl border-4 border-marine-seafoam"
           />
