@@ -21,14 +21,27 @@ export const addWatermark = (file, watermarkText = "MyBrand") => {
         ctx.textBaseline = "bottom";
         ctx.fillText(watermarkText, img.width - 20, img.height - 20);
 
-        canvas.toBlob((blob) => {
-          if (blob) {
-            const watermarkedFile = new File([blob], file.name, { type: "image/png" });
-            resolve(watermarkedFile);
-          } else {
-            reject("Canvas conversion failed");
-          }
-        }, "image/png");
+        // Detect original format
+        const isJPEG = file.type === "image/jpeg" || file.name.toLowerCase().endsWith(".jpg");
+        const mimeType = isJPEG ? "image/jpeg" : "image/png";
+
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              const ext = isJPEG ? ".jpg" : ".png";
+              const watermarkedFile = new File(
+                [blob],
+                file.name.replace(/\.\w+$/, ext),
+                { type: mimeType }
+              );
+              resolve(watermarkedFile);
+            } else {
+              reject("Canvas conversion failed");
+            }
+          },
+          mimeType,
+          isJPEG ? 0.8 : 1.0 // compress JPEG to avoid large size
+        );
       };
       img.src = e.target.result;
     };
