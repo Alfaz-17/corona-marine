@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Engines",
+    "description": "Marine diesel engines and power systems"
+  },
+  {
+    "id": 2,
+    "name": "Electronics",
+    "description": "Navigation, communication and electronic systems"
+  },
+  {
+    "id": 3,
+    "name": "Safety Equipment",
+    "description": "Marine safety and emergency equipment"
+  },
+  {
+    "id": 4,
+    "name": "Propulsion",
+    "description": "Propellers, shafts and propulsion systems"
+  },
+  {
+    "id": 5,
+    "name": "Anchoring",
+    "description": "Anchors, chains and mooring equipment"
+  },
+  {
+    "id": 6,
+    "name": "Deck Equipment",
+    "description": "Deck hardware and marine accessories"
+  }
+]

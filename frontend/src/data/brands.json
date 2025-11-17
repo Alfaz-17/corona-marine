@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "ABB Marine & Ports",
+    "logo": "https://images.pexels.com/photos/327545/pexels-photo-327545.jpeg",
+    "description": "Global leader in marine automation, electric propulsion, and energy efficiency solutions."
+  },
+  {
+    "id": 2,
+    "name": "Kongsberg Gruppen",
+    "logo": "https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg",
+    "description": "Specializes in integrated automation systems, vessel control, and digital ship solutions."
+  },
+  {
+    "id": 3,
+    "name": "Wärtsilä Marine",
+    "logo": "https://images.pexels.com/photos/358457/pexels-photo-358457.jpeg",
+    "description": "Provides advanced marine automation, propulsion, and energy optimization systems."
+  },
+  {
+    "id": 4,
+    "name": "Siemens Marine",
+    "logo": "https://images.pexels.com/photos/236068/pexels-photo-236068.jpeg",
+    "description": "Delivers automation, electric drive, and smart digital marine technologies."
+  },
+  {
+    "id": 5,
+    "name": "Rolls-Royce Marine",
+    "logo": "https://images.pexels.com/photos/47047/pexels-photo-47047.jpeg",
+    "description": "Develops propulsion, automation, and energy-efficient solutions for vessels."
+  },
+  {
+    "id": 6,
+    "name": "Emerson Marine",
+    "logo": "https://images.pexels.com/photos/159298/pexels-photo-159298.jpeg",
+    "description": "Automation leader in marine monitoring, control, and fuel management systems."
+  },
+  {
+    "id": 7,
+    "name": "Yokogawa Marine",
+    "logo": "https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg",
+    "description": "Provides ship automation, control systems, and advanced measurement technology."
+  },
+  {
+    "id": 8,
+    "name": "Honeywell Marine",
+    "logo": "https://images.pexels.com/photos/276514/pexels-photo-276514.jpeg",
+    "description": "Develops automation and safety systems for marine and offshore industries."
+  },
+  {
+    "id": 9,
+    "name": "Schneider Electric Marine",
+    "logo": "https://images.pexels.com/photos/163701/pexels-photo-163701.jpeg",
+    "description": "Offers automation, energy management, and digital ship solutions."
+  },
+  {
+    "id": 10,
+    "name": "Mitsubishi Heavy Industries Marine",
+    "logo": "https://images.pexels.com/photos/327545/pexels-photo-327545.jpeg",
+    "description": "Provides marine automation, propulsion, and integrated vessel management systems."
+  }
+]

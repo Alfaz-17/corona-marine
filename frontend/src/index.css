@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Inter:wght@400;500;700&display=swap');
+@import "tailwindcss";
+@plugin "daisyui";
+@theme {
+  --font-sans: "Rajdhani";
+  --font-heading: "Exo 2";
+
+
+  --color-marine-navy: #0A3D62;
+  --color-marine-blue: #1E5F74;
+  --color-marine-aqua: #3DB9C8;
+  --color-marine-seafoam: #79D9C5;
+
+  --color-neutral-white: #FFFFFF;
+  --color-neutral-graylight: #F5F7FA;
+  --color-neutral-graycool: #A7B1B8;
+  --color-neutral-charcoal: #1C1C1C;
+
+  --color-accent-orange: #FF7F50;
+}
+
+body {
+  overflow-x: hidden;
+}

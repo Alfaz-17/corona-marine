@@ -1,0 +1,12 @@
+1.chnage th pics and content 
+2. add real marine brans logos
+4. make api for update featured prduct and not 
+5. add update products functionnaliyty
+
+
+
+
+//done
+
+3. chnage the content in admin panel 
+6. brand funtionnaily in admin panel

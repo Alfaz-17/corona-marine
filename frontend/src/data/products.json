@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Marine Diesel Engine 500HP",
+    "description": "High-performance marine diesel engine suitable for commercial vessels",
+    "category": "Engines",
+    "image": "https://images.pexels.com/photos/8986070/pexels-photo-8986070.jpeg",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Ship Navigation Radar System",
+    "description": "Advanced navigation radar system for marine vessels",
+    "category": "Electronics",
+    "image": "https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg",
+    "featured": true
+  },
+  {
+    "id": 3,
+    "title": "Marine Safety Life Jackets",
+    "description": "Professional grade life jackets for marine safety",
+    "category": "Safety Equipment",
+    "image": "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg",
+    "featured": false
+  },
+  {
+    "id": 4,
+    "title": "Ship Propeller Bronze 5-Blade",
+    "description": "High-efficiency bronze propeller for commercial vessels",
+    "category": "Propulsion",
+    "image": "https://images.pexels.com/photos/164634/pexels-photo-164634.jpeg",
+    "featured": true
+  },
+  {
+    "id": 5,
+    "title": "Marine GPS Navigation Unit",
+    "description": "Professional marine GPS with chart plotting capabilities",
+    "category": "Electronics",
+    "image": "https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg",
+    "featured": false
+  },
+  {
+    "id": 6,
+    "title": "Marine Anchor Chain Grade 3",
+    "description": "Heavy-duty galvanized anchor chain for marine applications",
+    "category": "Anchoring",
+    "image": "https://images.pexels.com/photos/1002703/pexels-photo-1002703.jpeg",
+    "featured": false
+  }
+]

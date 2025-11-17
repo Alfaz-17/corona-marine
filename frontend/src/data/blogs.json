@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Essential Marine Safety Equipment Every Vessel Should Have",
+    "excerpt": "Discover the critical safety equipment that every marine vessel must carry to ensure crew safety and regulatory compliance.",
+    "content": "Marine safety is paramount in the maritime industry. Every vessel, regardless of size, must be equipped with essential safety equipment to protect crew members and passengers. This comprehensive guide covers the mandatory safety equipment including life jackets, emergency beacons, fire extinguishers, and more. We'll explore the latest safety technologies and best practices for maintaining your safety equipment in optimal condition.",
+    "date": "2024-01-15",
+    "image": "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg"
+  },
+  {
+    "id": 2,
+    "title": "The Future of Marine Electronics: What's Coming Next",
+    "excerpt": "Explore the latest technological advances in marine electronics and how they're revolutionizing navigation and communication at sea.",
+    "content": "The marine electronics industry is rapidly evolving with cutting-edge technologies that are transforming how we navigate and communicate at sea. From advanced radar systems to AI-powered navigation aids, this article explores the emerging technologies that are making marine operations safer and more efficient. We'll discuss integration of IoT devices, satellite communications, and predictive maintenance systems that are becoming standard in modern vessels.",
+    "date": "2024-01-10",
+    "image": "https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg"
+  },
+  {
+    "id": 3,
+    "title": "Maintenance Tips for Marine Diesel Engines",
+    "excerpt": "Keep your marine diesel engines running smoothly with these professional maintenance tips and best practices.",
+    "content": "Regular maintenance is crucial for the longevity and performance of marine diesel engines. This comprehensive maintenance guide covers everything from daily checks to seasonal overhauls. Learn about fuel system maintenance, cooling system care, and oil change schedules that will keep your engines running at peak performance. We'll also cover troubleshooting common issues and when to call professional marine technicians.",
+    "date": "2024-01-05",
+    "image": "https://images.pexels.com/photos/8986070/pexels-photo-8986070.jpeg"
+  }
+]
