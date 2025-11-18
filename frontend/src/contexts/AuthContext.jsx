@@ -35,9 +35,14 @@ const checkAuth = async () => {
 
 const login = async (email, password) => {
   try {
-    const response = await api.post('/auth/login', { email, password });
-    setUser(response.data);
-    return { success: true };
+  const response = await api.post('/auth/login', { email, password });
+
+localStorage.setItem("token", response.data.token);
+localStorage.setItem("user", JSON.stringify(response.data.user));
+
+setUser(response.data.user);
+
+return { success: true };
   } catch (error) {
     return { 
       success: false, 

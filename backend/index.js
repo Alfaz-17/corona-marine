@@ -17,7 +17,6 @@ connectDB();
 app.use(
   cors({
     origin: process.env.CLIENT_URL, // your frontend URL
-    credentials: true, // 🔑 allow cookies
   })
 );
 app.use(cookieParser());

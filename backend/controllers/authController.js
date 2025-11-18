@@ -61,16 +61,17 @@ export const login = async (req, res) => {
 
 
 
-const token =generateToken(res,user._id);
+const token = generateToken(user._id);
 
-    res.status(200).json({
-      message: "Successfully logged in",
-      token,
-      user: {
-        id: user._id,
-        email: user.email,
-      },
-    });
+res.status(200).json({
+  message: "Successfully logged in",
+  token,
+  user: {
+    id: user._id,
+    email: user.email,
+  },
+});
+
   } catch (error) {
     res.status(500).json({ error: "Internal server error", details: error.message });
   }
