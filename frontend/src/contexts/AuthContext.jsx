@@ -54,7 +54,7 @@ return { success: true };
 
   const logout = async () => {
     try {
-      await api.post('/auth/logout');
+      localStorage.removeItem("token");
       setUser(null);
       setMessage({ type: 'success', text: 'Successfully logged out' });
     } catch (error) {
