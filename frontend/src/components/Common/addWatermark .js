@@ -1,5 +1,5 @@
 // utils/watermark.js
-export const addWatermark = (file, watermarkText = "Corona Marine") => {
+export const addWatermark = (file, watermarkText = "**Corona Marine**") => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 

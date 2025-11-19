@@ -35,7 +35,7 @@ const fetchBrands = async () => {
         className="hero min-h-96 relative"
         style={{
           backgroundImage:
-            "url(https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg)",
+            "url('/assets/home.jpg')",
         }}
       >
         <div className="hero-overlay bg-gradient-to-r from-blue-900/30 via-cyan-800/30 to-teal-900/70"></div>
@@ -62,29 +62,35 @@ const fetchBrands = async () => {
          
 
           {/* Brands Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {brands.map((brand, index) => (
-              <motion.div
-                key={brand.id}
-                className="card bg-base-100 shadow-lg border border-cyan-100 hover:shadow-xl hover:border-cyan-300 transition-all cursor-pointer flex flex-col items-center p-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.03 }}
-              >
-                <Link to={`/brand/${brand.name}`} className="flex flex-col items-center">
-                  <img
-                    src={brand.logo}
-                    alt={brand.name}
-                    className="w-24 h-24 object-contain mb-4"
-                  />
-                  <h3 className="font-heading text-center text-lg font-semibold text-slate-800">
-                    {brand.name}
-                  </h3>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+  {brands.map((brand, index) => (
+    <motion.div
+      key={brand.id}
+      className="relative rounded-2xl overflow-hidden shadow-md border border-cyan-100 hover:shadow-2xl hover:border-cyan-300 transition-all duration-300 cursor-pointer h-48"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      whileHover={{ scale: 1.05 }}
+    >
+      <Link to={`/brand/${brand.name}`} className="absolute inset-0 flex items-center justify-center">
+        {/* Background image */}
+        <img
+          src={brand.logo}
+          alt={brand.name}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Overlay for contrast */}
+        <div className="absolute inset-0 bg-black/30"></div>
+        {/* Text on top */}
+        <h3 className="relative text-white text-lg font-bold text-center px-2">
+          {brand.name}
+        </h3>
+      </Link>
+    </motion.div>
+  ))}
+</div>
+
+
 
     
         </div>

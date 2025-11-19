@@ -8,6 +8,8 @@ import brandsData from "../data/brands.json";
 import blogsData from "../data/blogs.json";
 import api from "../utils/api";
 import MarineLoader from "../components/Common/MarineLoader";
+import { FiAnchor, FiCpu, FiTool } from "react-icons/fi"; // example icons
+import { FaShip, FaFish, FaLifeRing } from "react-icons/fa";
 
 const Home = () => {
   // const latestBlogs = blogsData.slice(0, 3);
@@ -23,6 +25,15 @@ const Home = () => {
   const [latestBlogs, setLatestBlogs] = useState([]);
   const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(true);
+
+const iconMap = {
+  "Anchors": <FiAnchor className="text-6xl text-white mb-4" />,
+  "Ships": <FaShip className="text-6xl text-white mb-4" />,
+  "Marine Tools": <FiTool className="text-6xl text-white mb-4" />,
+  "Electronics": <FiCpu className="text-6xl text-white mb-4" />,
+  "Fish": <FaFish className="text-6xl text-white mb-4" />,
+  "Safety": <FaLifeRing className="text-6xl text-white mb-4" />,
+};
 
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
@@ -107,7 +118,7 @@ const Home = () => {
       {/* Hero Section */}
 <section className="relative hero min-h-[60vh] sm:min-h-screen bg-cover bg-center"
   style={{
-    backgroundImage: "url('/assets/home.png')",
+    backgroundImage: "url('/assets/marine.png')",
     backgroundSize: "cover",
     backgroundPosition: "center",
   }}
@@ -189,7 +200,7 @@ const Home = () => {
       </section>
 
       {/* About Preview */}
-      <section className="py-20 bg-neutral-graylight">
+      <section className="py-20 bg-neutral-graylight" >
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -232,7 +243,7 @@ const Home = () => {
             >
               {/* Image framed with Aqua border for brand accent */}
               <img
-                src="https://images.pexels.com/photos/1117210/pexels-photo-1117210.jpeg"
+                src="/assets/home.png"
                 alt="Marine Operations"
                 className="rounded-lg shadow-xl border-4 border-marine-aqua"
               />
@@ -260,49 +271,40 @@ const Home = () => {
 
           {/* Categories Grid */}
           {/* Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories.slice(0, 6).map((category, index) => (
-              <motion.div
-                key={category._id}
-                className="card bg-neutral-white shadow-lg hover:shadow-xl border border-neutral-graylight transition-shadow"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="card-body text-center">
-                  {/* Icon OR Image */}
-                  {/* {category.icon ? (
-          <div className="text-4xl mb-4 text-marine-aqua">
-            {category.icon}
-          </div>
-        ) : (
-          <img
-            src={category.image}
-            alt={category.name}
-            className="h-16 mx-auto mb-4 object-contain"
-          />
-        )} */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {categories.slice(0, 6).map((category, index) => (
+    <motion.div
+      key={category._id}
+      className="relative rounded-2xl overflow-hidden shadow-md border border-neutral-graylight cursor-pointer h-48 group"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      viewport={{ once: true }}
+    >
+      {/* Background color */}
+      <div className="absolute inset-0 bg-marine-blue/40 group-hover:bg-marine-navy/60 transition-colors duration-300"></div>
 
-                  <h3 className="font-bold font-heading card-title justify-center text-marine-navy">
-                    {category.name}
-                  </h3>
-                  <p className="text-neutral-graycool">
-                    {category.description}
-                  </p>
+      {/* Icon and text */}
+      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center p-6">
+        <div className="mb-4">
+          {iconMap[category.name] || <FiAnchor className="text-6xl text-white" />}
+        </div>
+        <h3 className="text-white text-xl font-bold mb-2">{category.name}</h3>
+        <p className="text-white/80 text-sm">{category.description}</p>
+      </div>
 
-                  <div className="card-actions justify-center mt-4">
-                    <Link
-                      to={`/products?category=${category._id}`}
-                      className="btn bg-marine-blue hover:bg-marine-navy text-white border-none btn-sm"
-                    >
-                      View More
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+      {/* Hover overlay with centered text */}
+      <Link
+        to={`/products?category=${category._id}`}
+        className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+      >
+        View Products
+      </Link>
+    </motion.div>
+  ))}
+</div>
+
+
         </div>
       </section>
 
@@ -412,30 +414,34 @@ const Home = () => {
           </motion.div>
 
           {/* Brand Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {brands.map((brand, index) => (
-              <motion.div
-                key={brand._id}
-                className="card bg-neutral-white border border-neutral-graylight shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.05 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="card-body items-center text-center p-6">
-                  <img
-                    src={brand.logo}
-                    alt={brand.name}
-                    className="w-16 h-16 object-contain mb-2"
-                  />
-                  <h4 className="font-semibold text-sm text-marine-navy">
-                    {brand.name}
-                  </h4>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+  {brands.map((brand, index) => (
+    <motion.div
+      key={brand.id}
+      className="relative rounded-2xl overflow-hidden shadow-md border border-cyan-100 hover:shadow-2xl hover:border-cyan-300 transition-all duration-300 cursor-pointer h-48"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      whileHover={{ scale: 1.05 }}
+    >
+      <Link to={`/brand/${brand.name}`} className="absolute inset-0 flex items-center justify-center">
+        {/* Background image */}
+        <img
+          src={brand.logo}
+          alt={brand.name}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Overlay for contrast */}
+        <div className="absolute inset-0 bg-black/30"></div>
+        {/* Text on top */}
+        <h3 className="relative text-white text-lg font-bold text-center px-2">
+          {brand.name}
+        </h3>
+      </Link>
+    </motion.div>
+  ))}
+</div>
+
 
           {/* View All CTA */}
           <div className="text-center mt-12">
