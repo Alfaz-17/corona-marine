@@ -16,7 +16,11 @@ const ProductForm = () => {
     featured: false
   });
   const [imageFile, setImageFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState('');
+    const [imagePreview, setImagePreview] = useState('');
+
+    const [imagesFile, setImagesFile] = useState([]);
+    const [imagePreviews, setImagePreviews] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
@@ -75,6 +79,15 @@ const handleSubmit = async (e) => {
   try {
     let imageUrl = formData.image;
 
+let uploadedImages = [];
+
+for (let file of imagesFile) {
+  const watermarkedFile = await addWatermark(file, "CoronaMarine");
+  const url = await uploadToCloudinary(watermarkedFile);
+  uploadedImages.push(url);
+}
+
+
     if (imageFile) {
       setIsUploading(true);
 
@@ -88,6 +101,8 @@ const handleSubmit = async (e) => {
     const response = await api.post("/products", {
       ...formData,
       image: imageUrl,
+        images: uploadedImages, // send as array
+
     });
 
     setMessage({ type: "success", text: "Product created successfully!" });
@@ -117,6 +132,19 @@ const handleSubmit = async (e) => {
 };
 
 
+// Handle multiple images
+const handleImagesChange = (e) => {
+  const files = Array.from(e.target.files);
+  const newPreviews = files.map(file => URL.createObjectURL(file));
+  setImagesFile(prev => [...prev, ...files]);
+  setImagePreviews(prev => [...prev, ...newPreviews]);
+};
+
+
+const removeImageAtIndex = (index) => {
+  setImagesFile(prev => prev.filter((_, i) => i !== index));
+  setImagePreviews(prev => prev.filter((_, i) => i !== index));
+};
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -225,6 +253,45 @@ const handleSubmit = async (e) => {
             )}
           </div>
 
+{/* {images uppload} */}
+<div className="form-control">
+  <label className="label">
+    <span className="label-text font-medium">Product Images</span>
+  </label>
+
+  <div className="flex flex-wrap gap-4">
+    {imagePreviews.map((src, index) => (
+      <div key={index} className="relative w-32 h-32">
+        <img
+          src={src}
+          alt={`Preview ${index}`}
+          className="w-full h-full object-cover rounded-lg border border-gray-200"
+        />
+        <button
+          type="button"
+          onClick={() => removeImageAtIndex(index)}
+          className="absolute top-1 right-1 btn btn-circle btn-sm btn-error"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      </div>
+    ))}
+
+    <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 flex items-center justify-center w-32 h-32 relative cursor-pointer">
+      <input
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleImagesChange}
+        className="absolute w-full h-full opacity-0 cursor-pointer"
+      />
+      <Upload className="w-6 h-6 text-gray-400" />
+    </div>
+  </div>
+</div>
+
+
+        
           {/* Featured */}
           <div className="form-control">
             <label className="label cursor-pointer justify-start">

@@ -11,7 +11,33 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
 const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+const prevImage = () => {
+  if (!product?.images || product.images.length === 0) return;
+  setCurrentImageIndex(prev =>
+    prev === 0 ? product.images.length - 1 : prev - 1
+  );
+};
+
+const nextImage = () => {
+  if (!product?.images || product.images.length === 0) return;
+  setCurrentImageIndex(prev =>
+    prev === product.images.length - 1 ? 0 : prev + 1
+  );
+};
+
+// Auto-scroll
+useEffect(() => {
+  if (!product?.images || product.images.length <= 1) return;
+
+  const interval = setInterval(() => {
+    nextImage();
+  }, 3000);
+
+  return () => clearInterval(interval);
+}, [product?.images]);
+ 
   // Fetch product details from API
 useEffect(() => {
   const fetchProduct = async () => {
@@ -21,6 +47,7 @@ useEffect(() => {
       // ✅ fetch single product
       const { data } = await api.get(`/products/${id}`);
       setProduct(data);
+      console.log(data.images)
 
       // ✅ fetch related products by category name
       if (data?.category?.name) {
@@ -88,11 +115,52 @@ useEffect(() => {
         
         {/* PRODUCT IMAGE */}
         <div className="relative">
-          <img
-            src={product.image}
-            alt={product.title}
-            className="w-full rounded-2xl shadow-xl border border-neutral-200"
-          />
+   <div className="relative w-full rounded-2xl shadow-xl border border-neutral-200 overflow-hidden">
+  {product.images && product.images.length > 0 ? (
+    product.images.map((img, index) => (
+      <motion.img
+        key={index}
+        src={img}
+        alt={product.title}
+        className={`w-full h-full object-cover transition-opacity duration-500 ${
+          index === currentImageIndex ? "opacity-100 z-10" : "opacity-0 z-0 absolute top-0 left-0"
+        }`}
+      />
+    ))
+  ) : (
+    <img
+      src={product.image}
+      alt={product.title}
+      className="w-full h-full object-cover"
+    />
+  )}
+
+  {/* Left/Right Buttons */}
+  {product.images && product.images.length > 1 && (
+    <>
+      <button
+        onClick={prevImage}
+        className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/80 hover:bg-white/100 rounded-full p-2 z-20"
+      >
+        &#8592;
+      </button>
+      <button
+        onClick={nextImage}
+        className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/80 hover:bg-white/100 rounded-full p-2 z-20"
+      >
+        &#8594;
+      </button>
+    </>
+  )}
+
+  {/* Category Badge */}
+  <span className="absolute top-2 right-2 bg-white text-marine-navy shadow 
+                   px-2 py-0.5 text-xs rounded z-30">
+    {product.category?.name || "General"}
+  </span>
+</div>
+
+
         </div>
 
         {/* PRODUCT INFO */}

@@ -1,9 +1,9 @@
-export const uploadToCloudinary = async (file) => {
+export const uploadToCloudinary = async (file , folder = "corona-marine") => {
   try {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "corona"); // must exist & be unsigned
-
+    formData.append("folder",folder)
     const response = await fetch(
       "https://api.cloudinary.com/v1_1/dljbyn2lk/image/upload",
       {
