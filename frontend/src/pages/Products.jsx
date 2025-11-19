@@ -182,41 +182,56 @@ useEffect(() => {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
-        {paginatedProducts.map((product, index) => (
-          <motion.div
-            key={product._id}
-            className="card bg-white shadow-md hover:shadow-lg transition-shadow"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
-          >
-            <figure>
-              <img
-                src={product.image}
-                alt={product.title}
-                className="w-full h-40 object-cover rounded-t-lg"
-              />
-            </figure>
-            <div className="card-body p-3">
-              <h3 className="font-heading text-md font-semibold text-marine-navy truncate">
-                {product.title}
-              </h3>
-              <div className="flex justify-between items-center mt-2">
-                <span className="font-sans badge bg-marine-aqua text-white border-none badge-sm">
-                  {product.category?.name || "Uncategorized"}
-                </span>
-                <Link
-                  to={`/product/${product._id}`}
-                  className="text-marine-blue text-xs font-medium hover:underline"
-                >
-                  Read More →
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+ <div className="grid grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2">
+  {paginatedProducts.map((product, index) => (
+    <motion.div
+      key={product._id}
+      className="card h-60 bg-white shadow-md hover:shadow-xl transition-all duration-300 rounded-lg overflow-hidden group relative"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.05 }}
+    >
+
+      {/* IMAGE (4/5 height) */}
+      <figure className="h-4/5 w-full overflow-hidden relative">
+        <img
+          src={product.image}
+          alt={product.title}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+
+        {/* HOVER OVERLAY */}
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 
+                        transition-opacity duration-500"></div>
+
+        {/* READ MORE BUTTON ON HOVER */}
+        <Link
+          to={`/product/${product._id}`}
+          className="absolute inset-0 flex items-center justify-center 
+                     opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        >
+          <span className="px-3 py-1 bg-white text-marine-navy rounded-md text-xs font-semibold shadow">
+            Read More →
+          </span>
+        </Link>
+
+        {/* CATEGORY BADGE (TOP RIGHT) */}
+        <span className="absolute top-2 right-2 badge bg-white text-marine-navy border-none shadow-sm badge-sm z-20">
+          {product.category?.name || "General"}
+        </span>
+      </figure>
+
+      {/* TEXT SECTION (1/5 height) */}
+      <div className="h-1/5 p-2">
+        <h3 className="font-heading text-sm font-semibold text-marine-navy truncate">
+          {product.title}
+        </h3>
       </div>
+
+    </motion.div>
+  ))}
+</div>
+
 
       {filteredProducts.length === 0 && (
         <div className="text-center py-12">

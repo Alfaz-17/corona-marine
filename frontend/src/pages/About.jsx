@@ -32,9 +32,9 @@ const About = () => {
   {/* Hero Section */}
   <section
     className="hero min-h-96 relative"
-    style={{ backgroundImage: "url('/assets/about.png')" }}
+    style={{ backgroundImage: "url('/assets/aboutt.png')" }}
   >
-    <div className="hero-overlay"></div>
+        <div className="hero-overlay bg-gradient-to-r from-blue-900/30 via-cyan-800/30 to-teal-900/70"></div>
 
     <div className="hero-content text-center text-neutral-white">
       <motion.div

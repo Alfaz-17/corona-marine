@@ -35,6 +35,7 @@ import BrandList from './pages/Admin/BrandList';
 import BrandForm from './pages/Admin/BrandForm';
 import BlogList from './pages/Admin/BlogList';
 import BlogForm from './pages/Admin/BlogForm';
+import ScrollToTop from './components/Common/ScrollToTop';
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+          <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Routes>
             {/* Admin Login */}
