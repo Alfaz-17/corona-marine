@@ -58,7 +58,7 @@ const Login = () => {
           <div className="text-center mb-8">
             <div className="flex items-center justify-center mb-4">
               <Anchor className="w-8 h-8 text-blue-600 mr-2" />
-              <span className="text-2xl font-bold text-gray-800">Coronaa marine</span>
+              <span className="text-2xl font-bold text-gray-800">Corona marine</span>
             </div>
             <h2 className="text-xl font-semibold text-gray-700">Admin Login</h2>
             <p className="text-gray-500 mt-2">Login in to access the admin panel</p>
