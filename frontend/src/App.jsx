@@ -45,7 +45,7 @@ function App() {
     <AuthProvider>
       <Router>
           <ScrollToTop />
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col overflow-x-hidden">
           <Routes>
             {/* Admin Login */}
             <Route path="/login" element={<Login />} />
