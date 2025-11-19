@@ -324,58 +324,60 @@ const Home = () => {
             </p>
           </motion.div>
 
-<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
   {productsData.map((product, index) => (
     <motion.div
       key={product._id}
-      className="card h-110 bg-white border border-neutral-200 rounded-xl overflow-hidden shadow-md 
-                 hover:shadow-2xl transition-all duration-300 hover:border-marine-aqua cursor-pointer group relative"
-      
-      initial={{ opacity: 0, y: 30, scale: 0.95 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.4, delay: index * 0.08, ease: 'easeOut' }}
+      className="bg-white border border-neutral-200 rounded-xl overflow-hidden 
+                 shadow-md hover:shadow-xl hover:border-marine-aqua transition-all duration-300 
+                 cursor-pointer group"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
       viewport={{ once: true }}
     >
-      {/* IMAGE + OVERLAY */}
-      <div className="relative h-9/10 w-full overflow-hidden">
 
-        {/* IMAGE */}
+      {/* IMAGE WRAPPER — FIXED RESPONSIVE RATIO */}
+      <div className="relative w-full aspect-[4/5] overflow-hidden">
+
         <motion.img
           src={product.image}
           alt={product.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
 
-        {/* DARK OVERLAY ON HOVER */}
+        {/* OVERLAY */}
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 
-                        transition-opacity duration-500"></div>
+                       transition-opacity duration-500"></div>
 
-        {/* READ MORE BUTTON (appears only on hover) */}
+        {/* READ MORE */}
         <Link
           to={`/product/${product._id}`}
-          className="absolute inset-0 flex items-center justify-center z-30
-                     opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          className="absolute inset-0 flex items-center justify-center opacity-0 
+                     group-hover:opacity-100 transition-opacity duration-500 z-20"
         >
           <span className="px-3 py-1 bg-white text-marine-navy rounded-md text-xs font-semibold shadow">
             Read More →
           </span>
         </Link>
 
-        {/* CATEGORY BADGE (TOP RIGHT) */}
-        <span className="absolute top-2 right-2 z-40 badge bg-white text-marine-navy border-none shadow-md">
+        {/* CATEGORY BADGE */}
+        <span className="absolute top-2 right-2 bg-white text-marine-navy rounded-lg px-2 py-1 text-xs shadow z-30">
           {product.category?.name || "General"}
         </span>
       </div>
 
-      {/* TEXT (bottom area) */}
-      <div className="card-body h-1/10 p-3 flex items-center">
+      {/* TEXT */}
+      <div className="p-3">
         <h3 className="font-bold font-heading text-marine-navy text-sm line-clamp-1">
           {product.title}
         </h3>
       </div>
+
     </motion.div>
   ))}
 </div>
+
 
 
 

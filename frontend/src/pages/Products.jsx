@@ -182,55 +182,58 @@ useEffect(() => {
         </h2>
       </div>
 
- <div className="grid grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2">
+<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-3">
   {paginatedProducts.map((product, index) => (
     <motion.div
       key={product._id}
-      className="card h-60 bg-white shadow-md hover:shadow-xl transition-all duration-300 rounded-lg overflow-hidden group relative"
+      className="bg-white border border-neutral-200 rounded-lg overflow-hidden 
+                 shadow-sm hover:shadow-xl hover:border-marine-aqua
+                 transition-all duration-300 group cursor-pointer"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
     >
+      {/* IMAGE WITH FIXED RATIO */}
+      <div className="relative w-full aspect-[4/5] overflow-hidden">
 
-      {/* IMAGE (4/5 height) */}
-      <figure className="h-4/5 w-full overflow-hidden relative">
         <img
           src={product.image}
           alt={product.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
 
-        {/* HOVER OVERLAY */}
+        {/* DARK OVERLAY ON HOVER */}
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 
                         transition-opacity duration-500"></div>
 
-        {/* READ MORE BUTTON ON HOVER */}
+        {/* READ MORE BUTTON */}
         <Link
           to={`/product/${product._id}`}
           className="absolute inset-0 flex items-center justify-center 
-                     opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                     opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
         >
           <span className="px-3 py-1 bg-white text-marine-navy rounded-md text-xs font-semibold shadow">
             Read More →
           </span>
         </Link>
 
-        {/* CATEGORY BADGE (TOP RIGHT) */}
-        <span className="absolute top-2 right-2 badge bg-white text-marine-navy border-none shadow-sm badge-sm z-20">
+        {/* CATEGORY BADGE */}
+        <span className="absolute top-2 right-2 bg-white text-marine-navy shadow 
+                         px-2 py-0.5 rounded text-xs z-30">
           {product.category?.name || "General"}
         </span>
-      </figure>
+      </div>
 
-      {/* TEXT SECTION (1/5 height) */}
-      <div className="h-1/5 p-2">
-        <h3 className="font-heading text-sm font-semibold text-marine-navy truncate">
+      {/* TITLE */}
+      <div className="p-2">
+        <h3 className="text-sm font-semibold text-marine-navy line-clamp-1">
           {product.title}
         </h3>
       </div>
-
     </motion.div>
   ))}
 </div>
+
 
 
       {filteredProducts.length === 0 && (
