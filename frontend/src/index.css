@@ -19,9 +19,7 @@
   --color-accent-orange: #FF7F50;
 }
 
-body {
-  overflow-x: hidden;
-}
+
 @keyframes shimmer {
   0% {
     background-position: 0% 0%;

@@ -45,7 +45,7 @@ function App() {
     <AuthProvider>
       <Router>
           <ScrollToTop />
-        <div className="min-h-screen flex flex-col overflow-x-hidden">
+        <div className="min-h-screen flex flex-col ">
           <Routes>
             {/* Admin Login */}
             <Route path="/login" element={<Login />} />
@@ -75,7 +75,9 @@ function App() {
             {/* Public Routes */}
             <Route path="/*" element={
               <>
-                <Header  />
+              <Header  />
+              <div className='overflow-x-hidden'>
+                
                 <main className="flex-grow">
                   <AnimatePresence mode="wait">
                     <Routes>
@@ -91,6 +93,7 @@ function App() {
                     </Routes>
                   </AnimatePresence>
                 </main>
+</div>
                 <Footer />
                 <FloatingCallButton />
               </>

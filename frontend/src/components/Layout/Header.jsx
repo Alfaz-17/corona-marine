@@ -55,8 +55,8 @@ useEffect(() => {
   return (
     <>
       {/* HEADER */}
-      <header className="sticky top-0 z-40 w-full bg-gradient-to-r from-marine-navy via-marine-blue to-marine-navy text-neutral-white shadow-md">
-        <div className="navbar max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
+<header className="sticky top-0 z-40 w-full bg-gradient-to-r from-marine-navy via-marine-blue to-marine-navy backdrop-blur-lg text-neutral-white shadow-md">
+  <div className="navbar max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
           {/* Navbar Start */}
           <div className="navbar-start flex items-center gap-2">
 
