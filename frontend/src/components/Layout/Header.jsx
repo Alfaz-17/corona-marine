@@ -76,7 +76,7 @@ const Header = () => {
         <img
           src="/assets/logo.svg"
           alt="Corona Marine"
-          className="h-10 w-10 drop-shadow-2xl transition-transform group-hover:scale-110 group-hover:rotate-12"
+          className="h-20 w-20 drop-shadow-2xl transition-transform group-hover:scale-110 group-hover:rotate-12"
         />
         <div className="flex flex-col">
           <span className="font-heading text-xl font-bold text-white tracking-wide leading-none drop-shadow-lg">
