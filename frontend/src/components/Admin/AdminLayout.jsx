@@ -35,73 +35,82 @@ const AdminLayout = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-graylight font-sans">
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
         <div 
           className="fixed inset-0 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         >
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-75"></div>
+          <div className="fixed inset-0 bg-marine-navy/75 backdrop-blur-sm"></div>
         </div>
       )}
 
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-marine-navy shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
-        <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
-          <h1 className="text-xl font-bold text-gray-800">Admin Panel</h1>
+        {/* Logo Header */}
+        <div className="flex items-center justify-between h-20 px-6 border-b border-marine-aqua/20">
+          <Link to="/" className="flex flex-col">
+            <span className="font-heading text-xl font-bold text-white tracking-wide leading-none">
+              CORONA MARINE
+            </span>
+            <span className="font-sans text-xs text-marine-aqua tracking-wider uppercase font-semibold">
+              ADMIN PANEL
+            </span>
+          </Link>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-600"
+            className="lg:hidden p-2 rounded-md text-white/70 hover:text-white hover:bg-marine-blue/30 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <nav className="mt-6">
-          <div className="px-3">
-            {navigation.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center px-3 py-2 mt-1 text-sm font-medium rounded-md transition-colors ${
-                    isActive(item.href)
-                      ? 'bg-blue-100 text-blue-700'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-                  }`}
-                >
-                  <Icon className="w-5 h-5 mr-3" />
-                  {item.name}
-                </Link>
-              );
-            })}
-          </div>
+        {/* Navigation */}
+        <nav className="mt-6 px-3">
+          {navigation.map((item) => {
+            const Icon = item.icon;
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                onClick={() => setSidebarOpen(false)}
+                className={`flex items-center px-4 py-3 mt-1 text-sm font-bold uppercase tracking-wider rounded-lg transition-all border-l-4 ${
+                  active
+                    ? 'bg-marine-aqua/20 text-marine-aqua border-marine-aqua shadow-lg'
+                    : 'text-neutral-graylight border-transparent hover:bg-marine-blue/20 hover:text-white hover:border-marine-aqua/50'
+                }`}
+              >
+                <Icon className="w-5 h-5 mr-3" />
+                {item.name}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* User info and logout */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-marine-aqua/20 bg-marine-blue/20">
           <div className="flex items-center mb-3">
             <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                <User className="w-4 h-4 text-white" />
+              <div className="w-10 h-10 bg-marine-aqua rounded-full flex items-center justify-center">
+                <User className="w-5 h-5 text-marine-navy" />
               </div>
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-700">
+              <p className="text-sm font-bold text-white">
                 {user?.name || user?.email || 'Admin User'}
               </p>
+              <p className="text-xs text-marine-aqua">Administrator</p>
             </div>
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center w-full px-3 py-2 text-sm font-medium text-red-600 rounded-md hover:bg-red-50 transition-colors"
+            className="flex items-center justify-center w-full px-4 py-2 text-sm font-bold uppercase tracking-wider text-white bg-red-600/80 rounded-lg hover:bg-red-600 transition-all"
           >
-            <LogOut className="w-4 h-4 mr-3" />
+            <LogOut className="w-4 h-4 mr-2" />
             Logout
           </button>
         </div>
@@ -110,17 +119,20 @@ const AdminLayout = () => {
       {/* Main content */}
       <div className="lg:pl-64">
         {/* Top bar */}
-        <div className="sticky top-0 z-10 bg-white shadow-sm border-b border-gray-200">
+        <div className="sticky top-0 z-10 bg-marine-navy/95 backdrop-blur-md shadow-md border-b border-marine-aqua/20">
           <div className="flex items-center justify-between h-16 px-6">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-600"
+              className="lg:hidden p-2 rounded-md text-white hover:bg-marine-blue/30 transition-colors"
             >
               <Menu className="w-5 h-5" />
             </button>
             
             <div className="flex items-center space-x-4">
-              <Link to="/" className="text-sm text-blue-600 hover:text-blue-800">
+              <Link 
+                to="/" 
+                className="text-sm font-bold uppercase tracking-wider text-marine-aqua hover:text-white transition-colors"
+              >
                 ← Back to Website
               </Link>
             </div>

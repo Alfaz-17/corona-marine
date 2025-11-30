@@ -127,7 +127,7 @@ const iconMap = {
 
 
         {/* Dark navy overlay for contrast */}
-        <div className="hero-overlay bg-neutral-navy "></div>
+        <div className="hero-overlay bg-marine-navy/90 mix-blend-multiply "></div>
 
         <div className="hero-content text-center text-neutral-white">
           <motion.div
