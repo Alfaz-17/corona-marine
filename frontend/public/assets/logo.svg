@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <linearGradient id="metallic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5A8BA8"/>
+      <stop offset="50%" style="stop-color:#3DB9C8"/>
+      <stop offset="100%" style="stop-color:#1E5F74"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Ship's Helm Wheel (Steering Wheel) - 8 spokes -->
+  <circle cx="100" cy="100" r="80" fill="none" stroke="#0A3D62" stroke-width="8"/>
+  <circle cx="100" cy="100" r="80" fill="none" stroke="url(#metallic)" stroke-width="6"/>
+  
+  <!-- Outer rim detail -->
+  <circle cx="100" cy="100" r="75" fill="none" stroke="#3DB9C8" stroke-width="2"/>
+  
+  <!-- 8 Spokes of helm wheel -->
+  <g stroke="url(#metallic)" stroke-width="5" stroke-linecap="round">
+    <line x1="100" y1="100" x2="100" y2="25"/>
+    <line x1="100" y1="100" x2="100" y2="175"/>
+    <line x1="100" y1="100" x2="25" y2="100"/>
+    <line x1="100" y1="100" x2="175" y2="100"/>
+    <line x1="100" y1="100" x2="150" y2="50"/>
+    <line x1="100" y1="100" x2="50" y2="150"/>
+    <line x1="100" y1="100" x2="50" y2="50"/>
+    <line x1="100" y1="100" x2="150" y2="150"/>
+  </g>
+  
+  <!-- Spoke handles (realistic detail) -->
+  <g fill="#0A3D62" stroke="#3DB9C8" stroke-width="1.5">
+    <circle cx="100" cy="25" r="6"/>
+    <circle cx="100" cy="175" r="6"/>
+    <circle cx="25" cy="100" r="6"/>
+    <circle cx="175" cy="100" r="6"/>
+    <circle cx="150" cy="50" r="6"/>
+    <circle cx="50" cy="150" r="6"/>
+    <circle cx="50" cy="50" r="6"/>
+    <circle cx="150" cy="150" r="6"/>
+  </g>
+  
+  <!-- Center hub with "C" -->
+  <circle cx="100" cy="100" r="35" fill="#0A3D62" stroke="url(#metallic)" stroke-width="4"/>
+  <circle cx="100" cy="100" r="30" fill="#1E5F74"/>
+  
+  <!-- Letter "C" for Corona - bold and clean -->
+  <path d="M 115 100 C 115 108, 108 115, 100 115 C 92 115, 85 108, 85 100 C 85 92, 92 85, 100 85 C 105 85, 109 87, 112 91" 
+        stroke="#3DB9C8" 
+        stroke-width="6" 
+        fill="none" 
+        stroke-linecap="round"/>
+  
+  <!-- Small wave accent inside C -->
+  <path d="M 111 88 Q 113 86, 115 88" 
+        stroke="#79D9C5" 
+        stroke-width="2" 
+        fill="none"/>
+  
+  <!-- Center bolt detail -->
+  <circle cx="100" cy="100" r="8" fill="#3DB9C8"/>
+  <circle cx="100" cy="100" r="4" fill="#0A3D62"/>
+  
+  <!-- Realistic bolt slots -->
+  <line x1="97" y1="100" x2="103" y2="100" stroke="#1E5F74" stroke-width="1.5"/>
+  <line x1="100" y1="97" x2="100" y2="103" stroke="#1E5F74" stroke-width="1.5"/>
+</svg>
