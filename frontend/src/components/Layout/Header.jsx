@@ -1,285 +1,237 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Anchor,
-  Menu,
-  X,
-  Phone,
-  ChevronDown,
-  Home,
-  Info,
-  ShoppingBag,
-  Star,
-  BookOpen,
-  PhoneCall,
-} from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Search, ChevronRight, Home, ShoppingBag, Star, BookOpen, PhoneCall, Info } from "lucide-react";
 import api from "../../utils/api";
+import { TubelightNavbar } from "../ui/TubelightNavbar";
 
 const Header = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
-
+  const [activeDropdown, setActiveDropdown] = useState(null);
   const location = useLocation();
-  const navigate = useNavigate();
-useEffect(() => {
-  if (!isSidebarOpen) setMobileDropdownOpen(false);
-}, [isSidebarOpen]);
 
-  const navigation = [
-    { name: "Home", path: "/", icon: <Home className="w-4 h-4 hover:text-marine-aqua" /> },
-    { name: "About", path: "/about", icon: <Info className="w-4 h-4 hover:text-marine-aqua" /> },
-    { name: "Products", path: "/products", icon: <ShoppingBag className="w-4 h-4 hover:text-marine-aqua" /> },
-    { name: "Brands", path: "/brands", icon: <Star className="w-4 h-4 hover:text-marine-aqua" /> },
-    { name: "Blog", path: "/blog", icon: <BookOpen className="w-4 h-4 hover:text-marine-aqua" /> },
-    { name: "Contact", path: "/contact", icon: <PhoneCall className="w-4 h-4 hover:text-marine-aqua" /> },
-  ];
-
-  const isActive = (path) => location.pathname === path;
-
-  const fetchCategories = async () => {
-    try {
-      const res = await api.get("/categories");
-      setCategories(res.data);
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-    }
-  };
-
+  // Fetch categories
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await api.get("/categories");
+        setCategories(res.data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
     fetchCategories();
   }, []);
 
+  // Scroll behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+    setActiveDropdown(null);
+  }, [location]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
+  const navItems = [
+    { name: "Home", url: "/", icon: Home },
+    { name: "Products", url: "/products", icon: ShoppingBag },
+    { name: "Brands", url: "/brands", icon: Star },
+    { name: "About", url: "/about", icon: Info },
+    { name: "Blog", url: "/blog", icon: BookOpen },
+    { name: "Contact", url: "/contact", icon: PhoneCall },
+  ];
+
   return (
     <>
-      {/* HEADER */}
-<header className="sticky top-0 z-40 w-full bg-gradient-to-r from-marine-navy via-marine-blue to-marine-navy backdrop-blur-lg text-neutral-white shadow-md">
-  <div className="navbar max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
-          {/* Navbar Start */}
-          <div className="navbar-start flex items-center gap-2">
-
-
-
-
-            {/* Logo */}
-            <Link to="/" className="flex font-heading items-center gap-2 text-xl font-bold">
-              <Anchor className="w-7 h-7 text-marine-aqua animate-pulse" />
-              <span>Corona Marine</span>
-            </Link>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex gap-6 items-center relative">
-            {navigation.map((item) =>
-              item.name === "Products" ? (
-                <div
-                  key={item.name}
-                  className="relative"
-                  onMouseEnter={() => setOpenDropdown(true)}
-                  onMouseLeave={() => setOpenDropdown(false)}
-                >
-                  <button
-                    className={`flex items-center gap-2 px-3 py-2 font-heading rounded-md font-medium transition-all ${
-                      isActive(item.path)
-                        ? "bg-marine-aqua text-marine-navy shadow"
-                        : "hover:bg-marine-blue"
-                    }`}
-                  >
-                    {item.icon}
-                    {item.name}
-                    <ChevronDown className="w-4 h-4" />
-                  </button>
-
-                  {/* Animated Dropdown */}
-                  <AnimatePresence>
-                    {openDropdown && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute left-0 mt-2 w-56 rounded-lg bg-white text-marine-navy shadow-lg overflow-hidden"
-                      >
-                        <ul className="flex flex-col">
-                          {categories.map((cat) => (
-                            <li key={cat._id}>
-                              <Link
-                                to={`/products?category=${cat.slug || cat._id}`}
-                                className="flex items-center gap-2 px-4 py-2 hover:bg-marine-blue hover:text-white transition"
-                              >
-                                <ShoppingBag className="w-4 h-4" />
-                                {cat.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ) : (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className={`flex items-center gap-2 px-3 py-2 font-heading rounded-md font-medium transition-all ${
-                    isActive(item.path)
-                      ? "bg-marine-aqua text-marine-navy shadow"
-                      : "hover:bg-marine-blue"
-                  }`}
-                >
-                  {item.icon}
-                  {item.name}
-                </Link>
-              )
-            )}
-          </nav>
-
-          {/* Navbar End */}
-<div className="navbar-end flex items-center gap-3">
-  <a
-    href="tel:+1234567890"
-    className="
-      hidden sm:flex items-center gap-2 
-      px-5 py-2.5 rounded-xl 
-      border border-marine-aqua 
-      text-marine-aqua font-semibold
-      hover:bg-marine-aqua hover:text-marine-navy
-      transition-all duration-300
-    "
-  >
-    <Phone className="w-4 h-4 text-green-600" />
-    Call Us
-  </a>
-</div>
-
-
-
-                      {/* Sidebar Toggle */}
-<button
-  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-  className="p-3 mx-2 rounded-2xl bg-marine-aqua text-marine-navy shadow-lg shadow-marine-navy/50 hover:bg-marine-blue hover:text-white transition-all duration-300 ease-in-out transform hover:scale-110 hover:shadow-xl lg:hidden"
->
-  {isSidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-</button>
+      {/* Logo - Fixed Top Left */}
+      <Link
+        to="/"
+        className="fixed top-6 left-6 z-50 flex items-center gap-3 group"
+      >
+        <img
+          src="/assets/logo.svg"
+          alt="Corona Marine"
+          className="h-10 w-10 drop-shadow-2xl transition-transform group-hover:scale-110 group-hover:rotate-12"
+        />
+        <div className="flex flex-col">
+          <span className="font-heading text-xl font-bold text-white tracking-wide leading-none drop-shadow-lg">
+            CORONA
+          </span>
+          <span className="font-sans text-[10px] text-marine-aqua tracking-[0.3em] uppercase font-semibold drop-shadow-md">
+            MARINE
+          </span>
         </div>
-      </header>
+      </Link>
 
+      {/* Tubelight Navbar - Desktop & Mobile */}
+      <TubelightNavbar items={navItems} />
 
-<AnimatePresence>
-  {isSidebarOpen && (
-       <motion.div
-  className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={() => setIsSidebarOpen(false)}
-      />
-  )}
-</AnimatePresence>
+      {/* Mobile Menu Button - Fixed Top Right */}
+      <button
+        className="lg:hidden fixed top-6 right-6 z-50 p-3 bg-marine-navy/90 backdrop-blur-lg rounded-full border border-marine-aqua/30 text-white hover:text-marine-aqua transition-colors shadow-2xl"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+      </button>
 
+      {/* Mobile Sidebar */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-marine-navy/80 backdrop-blur-md z-40"
+              onClick={() => setIsOpen(false)}
+            />
 
-      {/* SIDEBAR (Mobile Nav) */}
-<motion.aside
-  initial={{ x: "-100%" }}
-  animate={{ x: isSidebarOpen ? 0 : "-100%" }}
-  transition={{ type: "spring", stiffness: 80 }}
-  className="fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-marine-navy via-marine-blue to-marine-navy text-neutral-white shadow-2xl z-50 flex flex-col lg:hidden"
->
-
-        {/* Logo (Sidebar) */}
-        <div className="flex items-center gap-2 px-6 py-5 border-b border-marine-blue">
-          <Anchor className="w-7 h-7 text-marine-aqua animate-pulse" />
-          <span className="font-heading tracking-wide text-lg">Corona Marine</span>
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex-1 px-4 py-6 overflow-y-auto">
-          <ul className="flex flex-col gap-2">
-            {navigation.map((item) =>
-              item.name === "Products" ? (
-                <li key={item.name}>
-                  <button
-                    onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
-                    className={`flex items-center justify-between w-full px-4 py-2 rounded-lg font-heading transition-all ${
-                      isActive(item.path)
-                        ? "bg-marine-aqua text-marine-navy font-semibold shadow"
-                        : "hover:bg-marine-blue"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      {item.icon}
-                      {item.name}
+            {/* Sidebar */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed inset-y-0 right-0 w-full sm:w-96 bg-gradient-to-b from-marine-navy via-marine-navy to-marine-blue shadow-2xl z-50 flex flex-col"
+            >
+              {/* Header */}
+              <div className="relative p-6 border-b border-white/10 bg-marine-navy/50 backdrop-blur-sm">
+                <div className="flex justify-between items-center">
+                  <div className="flex flex-col">
+                    <span className="font-heading text-2xl font-bold text-white tracking-wide">
+                      CORONA
                     </span>
-                    <ChevronDown
-                      className={`w-4 h-4 transition-transform ${
-                        mobileDropdownOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  {/* Animated dropdown */}
-                  <AnimatePresence>
-                    {mobileDropdownOpen && (
-                   <motion.ul
-  initial={{ opacity: 0, maxHeight: 0 }}
-  animate={{ opacity: 1, maxHeight: 500 }}
-  exit={{ opacity: 0, maxHeight: 0 }}
-  transition={{ duration: 0.25 }}
-  className="pl-6 mt-2 flex flex-col gap-1 overflow-hidden"
->
-
-                        {categories.map((cat) => (
-                          <li key={cat._id}>
-                            <button
-                              onClick={() => {
-                                navigate(`/products?category=${cat.slug || cat._id}`);
-                                setIsSidebarOpen(false);
-                                setMobileDropdownOpen(false);
-                              }}
-                              className="flex items-center gap-2 w-full text-left px-4 py-2 rounded hover:bg-marine-blue transition"
-                            >
-                              <ShoppingBag className="w-4 h-4" />
-                              {cat.name}
-                            </button>
-                          </li>
-                        ))}
-                      </motion.ul>
-                    )}
-                  </AnimatePresence>
-                </li>
-              ) : (
-                <li key={item.name}>
-                  <Link
-                    to={item.path}
-                    onClick={() => setIsSidebarOpen(false)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-heading transition-all ${
-                      isActive(item.path)
-                        ? "bg-marine-aqua text-marine-navy font-semibold shadow"
-                        : "hover:bg-marine-blue"
-                    }`}
+                    <span className="font-sans text-xs text-marine-aqua tracking-[0.2em] uppercase font-semibold">
+                      MARINE
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
                   >
-                    {item.icon}
-                    {item.name}
-                  </Link>
-                </li>
-              )
-            )}
-          </ul>
-        </nav>
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+              </div>
 
-        {/* Sidebar Footer */}
-        <div className="px-6 py-4 border-t border-marine-blue flex flex-col gap-3">
-          <a
-            href="tel:+1234567890"
-            className="flex items-center justify-center gap-2 w-full py-2 rounded-lg bg-marine-aqua text-marine-navy font-semibold hover:bg-marine-blue hover:text-white transition"
-          >
-            <Phone className="w-4 h-4" />
-            Call Us Now
-          </a>
-        </div>
-      </motion.aside>
+              {/* Navigation */}
+              <div className="flex-1 overflow-y-auto py-6 px-4">
+                <nav className="space-y-2">
+                  {navItems.map((link, index) => (
+                    <motion.div
+                      key={link.name}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                    >
+                      {link.name === "Products" ? (
+                        <div>
+                          <button
+                            onClick={() =>
+                              setActiveDropdown(activeDropdown === link.name ? null : link.name)
+                            }
+                            className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-left font-bold text-white hover:bg-white/10 transition-all ${
+                              location.pathname === link.url ? "bg-marine-aqua/20 text-marine-aqua" : ""
+                            }`}
+                          >
+                            <span className="uppercase tracking-wide">{link.name}</span>
+                            <ChevronRight
+                              className={`w-5 h-5 transition-transform ${
+                                activeDropdown === link.name ? "rotate-90" : ""
+                              }`}
+                            />
+                          </button>
+                          <AnimatePresence>
+                            {activeDropdown === link.name && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="overflow-hidden"
+                              >
+                                <div className="pl-4 pt-2 space-y-1">
+                                  {categories.map((category) => (
+                                    <Link
+                                      key={category._id}
+                                      to={`/products?category=${category.slug || category._id}`}
+                                      className="block px-4 py-2 text-neutral-graycool hover:text-marine-aqua text-sm font-medium rounded-lg hover:bg-white/5 transition-all"
+                                      onClick={() => setIsOpen(false)}
+                                    >
+                                      {category.name}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      ) : (
+                        <Link
+                          to={link.url}
+                          className={`block px-4 py-3 rounded-lg font-bold text-white hover:bg-white/10 transition-all uppercase tracking-wide ${
+                            location.pathname === link.url ? "bg-marine-aqua/20 text-marine-aqua" : ""
+                          }`}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {link.name}
+                        </Link>
+                      )}
+                    </motion.div>
+                  ))}
+                </nav>
+              </div>
+
+              {/* Footer CTA */}
+              <div className="p-6 bg-marine-blue/30 border-t border-white/10 backdrop-blur-sm space-y-4">
+                <Link
+                  to="/contact"
+                  className="block w-full py-3 bg-marine-aqua text-marine-navy text-center font-bold uppercase tracking-wider rounded-lg hover:bg-white transition-all shadow-lg"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Get a Quote
+                </Link>
+                <a
+                  href="tel:+1234567890"
+                  className="flex items-center justify-center gap-3 text-neutral-graylight hover:text-white transition-colors"
+                >
+                  <div className="p-2 rounded-full bg-white/10">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <span className="font-semibold">+1 (555) 123-4567</span>
+                </a>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 };

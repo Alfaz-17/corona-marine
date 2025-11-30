@@ -38,7 +38,7 @@ const fetchBrands = async () => {
             "url('/assets/home.jpg')",
         }}
       >
-        <div className="hero-overlay bg-gradient-to-r from-blue-900/30 via-cyan-800/30 to-teal-900/70"></div>
+        <div className="hero-overlay bg-marine-navy/90 mix-blend-multiply"></div>
         <div className="hero-content text-center text-white">
           <motion.div
             className="max-w-4xl"
