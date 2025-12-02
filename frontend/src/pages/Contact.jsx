@@ -45,19 +45,19 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Phone",
-      details: ["+1 (555) 123-4567", "+1 (555) 123-4568"],
-      action: "tel:+15551234567",
+      details: ["+91 9376502550"],
+      action: "tel:+919376502550",
     },
     {
       icon: Mail,
       title: "Email",
-      details: ["info@marineserv.com", "support@marineserv.com"],
-      action: "mailto:info@marineserv.com",
+      details: ["coronamarine5050@gmail.com"],
+      action: "mailto:coronamarine5050@gmail.com",
     },
     {
       icon: MapPin,
       title: "Address",
-      details: ["123 Harbor Street", "Port City, PC 12345", "United States"],
+      details: ["Bhavnagar, Gujarat, India"],
       action: null,
     },
     {
@@ -95,7 +95,7 @@ const Contact = () => {
             </p>
             <div className="flex justify-center gap-4 mt-6">
               <a
-                href="tel:+15551234567"
+                href="tel:+919376502550"
                 className="btn bg-cyan-500 hover:bg-cyan-600 border-0 text-white"
               >
                 Call Now
@@ -236,7 +236,7 @@ const Contact = () => {
                           <input
                             type="tel"
                             name="phone"
-                            placeholder="+1 (555) 123-4567"
+                            placeholder="+91 9376502550"
                             className="input input-bordered w-full"
                             value={formData.phone}
                             onChange={handleChange}
@@ -320,11 +320,11 @@ const Contact = () => {
               Available 24/7 for urgent marine assistance and emergency repairs.
             </p>
             <div className="flex flex-col sm:flex-row gap-2">
-              <a href="tel:+15551234567" className="btn bg-red-600 hover:bg-red-700 text-white flex-1">
+              <a href="tel:+919376502550" className="btn bg-red-600 hover:bg-red-700 text-white flex-1">
                 <Phone className="w-4 h-4 mr-2" />
                 Emergency Hotline
               </a>
-              <a href="mailto:emergency@marineserv.com" className="btn btn-outline border-red-600 text-red-600 hover:bg-red-100 flex-1">
+              <a href="mailto:coronamarine5050@gmail.com" className="btn btn-outline border-red-600 text-red-600 hover:bg-red-100 flex-1">
                 <Mail className="w-4 h-4 mr-2" />
                 Emergency Email
               </a>
@@ -349,7 +349,7 @@ const Contact = () => {
         Contact our marine experts today for a free consultation
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="tel:+15551234567" className="btn btn-primary btn-lg">
+        <a href="tel:+919376502550" className="btn btn-primary btn-lg">
           <Phone className="w-5 h-5 mr-2" />
           Call Now
         </a>

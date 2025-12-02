@@ -12,7 +12,7 @@ const Footer = () => {
           <span className="font-bold text-xl">Corona Marine</span>
         </div>
         <p className="text-neutral-graylight text-justify mb-4 flex-1">
-          United Marine Services is leading stockiest and supplier of Marine Electronic Equipment, Industrial Automation, Fire Alarm and Safety System. UMS takes pride in catering to Marine Fleet, Offshore vessels, Oil Rigs, Major Industries, and reputed trading houses across the globe. Our UPS is reliability of spares, transparency of origin, and money back guarantee.
+          Corona Marine is a leading stockist and supplier of Marine Engine Parts, Auxiliary Machinery, Navigation Equipment, and Industrial Automation. We cater to the global maritime industry, serving ship owners, management companies, and trading houses with high-quality spares sourced from Alang ship breaking yard. We ensure reliability, transparency, and competitive pricing for all our clients.
         </p>
         <div className="flex space-x-4 m-auto">
           <Facebook className="w-5 h-5 text-marine-aqua hover:text-white" />
@@ -52,7 +52,7 @@ const Footer = () => {
         <div className="space-y-3">
           <div className="flex items-start">
             <MapPin className="w-5 h-5 text-marine-aqua mt-1 mr-3 flex-shrink-0" />
-            <span className="text-neutral-graylight">Currently not added</span>
+            <span className="text-neutral-graylight">Bhavnagar, Gujarat, India</span>
           </div>
           <div className="flex items-center">
             <Phone className="w-5 h-5 text-marine-aqua mr-3" />

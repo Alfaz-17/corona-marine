@@ -9,7 +9,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import RequireAuth from './components/Auth/RequireAuth';
 
 // Layout Components
-import Header from './components/Layout/Header';
+import TubelightNavbar from './components/ui/TubelightNavbar';
 import Footer from './components/Layout/Footer';
 import FloatingCallButton from './components/Common/FloatingCallButton';
 import AdminLayout from './components/Admin/AdminLayout';
@@ -75,7 +75,7 @@ function App() {
             {/* Public Routes */}
             <Route path="/*" element={
               <>
-              <Header  />
+              <TubelightNavbar  />
               <div className='overflow-x-hidden'>
                 
                 <main className="flex-grow">

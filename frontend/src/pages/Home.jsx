@@ -129,14 +129,14 @@ const iconMap = {
         {/* Dark navy overlay for contrast */}
         <div className="hero-overlay bg-marine-navy/90 mix-blend-multiply "></div>
 
-        <div className="hero-content text-center text-neutral-white">
+        <div className="hero-content text-center text-neutral-white pt-24 px-4">
           <motion.div
             className="max-w-4xl"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <h1 className="font-heading mb-5 text-5xl lg:text-7xl font-bold leading-tight">
+            <h1 className="font-heading mb-5 text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight">
               Your Trusted{" "}
               <span className="font-sans text-marine-aqua">
                 Marine Services

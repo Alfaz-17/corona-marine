@@ -202,7 +202,7 @@ useEffect(() => {
           {/* ACTION BUTTONS */}
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href="tel:+1234567890"
+              href="tel:+919376502550"
               className="btn bg-marine-aqua text-marine-navy border-none hover:bg-marine-seafoam font-semibold flex-1"
             >
               <Phone className="w-4 h-4 mr-2" />
@@ -210,7 +210,7 @@ useEffect(() => {
             </a>
 
             <a
-              href="mailto:info@marineserv.com"
+              href="mailto:coronamarine5050@gmail.com"
               className="btn btn-outline border-marine-aqua text-marine-aqua hover:bg-marine-aqua hover:text-marine-navy font-semibold flex-1"
             >
               <Mail className="w-4 h-4 mr-2" />
