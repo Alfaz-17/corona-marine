@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Phone, Search, ChevronRight, Home, ShoppingBag, Info, BookOpen, Star, PhoneCall } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Search, ChevronRight, Home, ShoppingBag, Info, BookOpen, Star, PhoneCall, Anchor } from "lucide-react";
 import api from "../../utils/api";
 
 const TubelightNavbar = () => {
@@ -80,6 +80,10 @@ const TubelightNavbar = () => {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 group relative z-10">
+              <div className="relative">
+                <div className="absolute inset-0 bg-marine-aqua/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <Anchor className={`text-marine-aqua transition-all duration-500 ${scrolled ? "w-8 h-8" : "w-10 h-10"}`} />
+              </div>
               <div className="flex flex-col">
                 <span
                   className={`font-heading font-bold text-white tracking-wide leading-none transition-all duration-500 ${
@@ -189,13 +193,16 @@ const TubelightNavbar = () => {
             >
               {/* Header */}
               <div className="relative p-6 border-b border-white/10 bg-marine-navy/50 backdrop-blur-sm flex justify-between items-center">
-                <div className="flex flex-col">
-                  <span className="font-heading text-2xl font-bold text-white tracking-wide">
-                    CORONA
-                  </span>
-                  <span className="font-sans text-xs text-marine-aqua tracking-[0.2em] uppercase font-semibold">
-                    MARINE
-                  </span>
+                <div className="flex items-center gap-3">
+                  <Anchor className="w-8 h-8 text-marine-aqua" />
+                  <div className="flex flex-col">
+                    <span className="font-heading text-2xl font-bold text-white tracking-wide">
+                      CORONA
+                    </span>
+                    <span className="font-sans text-xs text-marine-aqua tracking-[0.2em] uppercase font-semibold">
+                      MARINE
+                    </span>
+                  </div>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}

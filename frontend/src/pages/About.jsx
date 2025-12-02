@@ -48,7 +48,7 @@ const About = () => {
               About Corona Marine
             </h1>
             <p className="font-sans mb-5 text-xl text-neutral-graylight">
-              Empowering the maritime industry through intelligent automation since 2005.
+              Your Premier Partner for Marine Automation & Spare Parts
             </p>
           </motion.div>
         </div>
@@ -69,17 +69,19 @@ const About = () => {
                 Our Story
               </h2>
               <p className="font-sans text-lg text-marine-blue mb-6 leading-relaxed">
-                Founded in 1985, Corona Marine started with a clear mission: to transform marine operations 
-                with cutting-edge automation technology. From humble beginnings, we've become a trusted name 
-                in marine innovation and control systems.
+                Established in Bhavnagar, Gujarat, Corona Marine has evolved into a global leader in the supply of 
+                marine automation systems and high-quality spare parts. As a premier **Dealer and Stockist**, we bridge the gap 
+                between quality and affordability by sourcing premium components from the world-renowned Alang ship breaking yard.
               </p>
               <p className="font-sans text-lg text-marine-blue mb-6 leading-relaxed">
-                We specialize in the integration of intelligent systems that improve vessel safety, 
-                performance, and energy efficiency — tailored for today's dynamic maritime demands.
+                We specialize in **Marine Automation**, offering a comprehensive range of navigation equipment, 
+                engine control systems, and auxiliary machinery. Our expertise lies in identifying and refurbishing 
+                critical marine electronics to ensure they meet the rigorous demands of modern shipping.
               </p>
               <p className="font-sans text-lg text-marine-blue mb-8 leading-relaxed">
-                Our solutions are deployed globally, trusted by commercial fleets, offshore platforms, and 
-                port authorities who depend on automation for reliable, round-the-clock operations.
+                Whether you need a hard-to-find spare part or a complete automation retrofit, Corona Marine is your 
+                trusted partner. We serve ship owners, management companies, and trading houses worldwide with 
+                unmatched reliability and technical support.
               </p>
               <Link
                 to="/contact"
@@ -148,6 +150,46 @@ const About = () => {
                 </motion.div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Services/Expertise Section */}
+      <section className="py-20 bg-neutral-white">
+        <div className="container mx-auto px-4">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="font-heading text-4xl font-bold text-marine-navy mb-4 uppercase tracking-wide">
+              Our Expertise
+            </h2>
+            <p className="font-sans text-lg text-marine-blue max-w-2xl mx-auto">
+              Comprehensive solutions for the maritime industry
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-8 bg-neutral-graylight rounded-xl border border-marine-aqua/10 hover:border-marine-aqua/30 transition-all">
+              <h3 className="font-heading text-2xl font-bold text-marine-navy mb-4">Marine Automation</h3>
+              <p className="font-sans text-marine-blue">
+                Specialized in PLC systems, engine monitoring, and control panels. We provide testing and repair services for all major automation brands.
+              </p>
+            </div>
+            <div className="p-8 bg-neutral-graylight rounded-xl border border-marine-aqua/10 hover:border-marine-aqua/30 transition-all">
+              <h3 className="font-heading text-2xl font-bold text-marine-navy mb-4">Spare Parts Stockist</h3>
+              <p className="font-sans text-marine-blue">
+                Massive inventory of reconditioned spares including hydraulic pumps, motors, and navigation electronics sourced directly from Alang.
+              </p>
+            </div>
+            <div className="p-8 bg-neutral-graylight rounded-xl border border-marine-aqua/10 hover:border-marine-aqua/30 transition-all">
+              <h3 className="font-heading text-2xl font-bold text-marine-navy mb-4">Global Supply</h3>
+              <p className="font-sans text-marine-blue">
+                Efficient logistics network ensuring timely delivery of critical spares to any port in the world, minimizing vessel downtime.
+              </p>
+            </div>
           </div>
         </div>
       </section>

@@ -10,7 +10,8 @@ import {
   FileText, 
   LogOut,
   User,
-  Home
+  Home,
+  Anchor
 } from 'lucide-react';
 
 const AdminLayout = () => {
@@ -52,13 +53,16 @@ const AdminLayout = () => {
       }`}>
         {/* Logo Header */}
         <div className="flex items-center justify-between h-20 px-6 border-b border-marine-aqua/20">
-          <Link to="/" className="flex flex-col">
-            <span className="font-heading text-xl font-bold text-white tracking-wide leading-none">
-              CORONA MARINE
-            </span>
-            <span className="font-sans text-xs text-marine-aqua tracking-wider uppercase font-semibold">
-              ADMIN PANEL
-            </span>
+          <Link to="/" className="flex items-center gap-3">
+            <Anchor className="w-8 h-8 text-marine-aqua" />
+            <div className="flex flex-col">
+              <span className="font-heading text-xl font-bold text-white tracking-wide leading-none">
+                CORONA MARINE
+              </span>
+              <span className="font-sans text-xs text-marine-aqua tracking-wider uppercase font-semibold">
+                ADMIN PANEL
+              </span>
+            </div>
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
