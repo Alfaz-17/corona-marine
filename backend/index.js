@@ -19,6 +19,7 @@ app.use(
     origin: process.env.CLIENT_URL, // your frontend URL
   })
 );
+app.get("/", (req, res) => res.send("OK"));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
