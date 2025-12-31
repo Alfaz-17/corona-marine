@@ -8,7 +8,7 @@ const CategoryList = () => {
   const [categories, setCategories] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState({ type: '', text: '' });
 
   useEffect(() => {
@@ -26,6 +26,8 @@ const CategoryList = () => {
       setCategories(res.data);
     } catch (error) {
       console.log("Error in fetch categories", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

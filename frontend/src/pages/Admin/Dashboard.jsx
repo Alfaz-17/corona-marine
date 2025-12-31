@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Package, Grid3X3, Award, FileText, Plus, TrendingUp } from 'lucide-react';
 import api from '../../utils/api';
 
 const Dashboard = () => {
-  const [stats, setStats] = React.useState(null);
+  const [stats, setStats] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const statCards = stats
     ? [
@@ -30,12 +31,22 @@ const Dashboard = () => {
       setStats(res.data);
     } catch (error) {
       console.log("Error fetching dashboard stats:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     getDashboardSummary();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="loading loading-spinner loading-lg text-marine-aqua"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
